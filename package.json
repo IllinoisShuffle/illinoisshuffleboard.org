@@ -1,0 +1,40 @@
+{
+  "name": "jekyll-starter-tailwind",
+  "version": "6.0.0",
+  "description": "A starter kit for using Tailwind with Jekyll",
+  "main": "gulpfile.babel.js",
+  "devDependencies": {
+    "autoprefixer": "10.3.4",
+    "babel-preset-env": "1.7.0",
+    "babel-register": "6.26.0",
+    "browser-sync": "2.27.4",
+    "browsersync": "0.0.1-security",
+    "cross-env": "7.0.3",
+    "cross-spawn": "7.0.3",
+    "cssnano": "5.0.8",
+    "gulp": "4.0.2",
+    "gulp-postcss": "9.0.1",
+    "postcss": "8.3.6",
+    "postcss-import": "14.0.2",
+    "tailwindcss": "2.2.15"
+  },
+  "scripts": {
+    "build:production": "cross-env NODE_ENV=production gulp",
+    "build:dev": "cross-env NODE_ENV=development gulp",
+    "build": "npm run build:production",
+    "dev": "cross-env NODE_ENV=development gulp serve",
+    "start": "npm run dev"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/taylorbryant/jekyll-starter-tailwind.git"
+  },
+  "author": "Taylor Bryant",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/taylorbryant/jekyll-starter-tailwind/issues"
+  },
+  "publishConfig": {
+    "access": "public"
+  }
+}
