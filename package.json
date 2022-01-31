@@ -1,0 +1,25 @@
+{
+  "name": "illinoisshuffleboard.org",
+  "version": "1.0.0",
+  "description": "The Illinois Shuffleboard Association's Website",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/IllinoisShuffle/illinoisshuffleboard.org.git"
+  },
+  "author": "",
+  "license": "Apache-2.0",
+  "bugs": {
+    "url": "https://github.com/IllinoisShuffle/illinoisshuffleboard.org/issues"
+  },
+  "homepage": "https://github.com/IllinoisShuffle/illinoisshuffleboard.org#readme",
+  "dependencies": {
+    "autoprefixer": "^10.4.2",
+    "postcss": "^8.4.5",
+    "postcss-cli": "^9.1.0",
+    "tailwindcss": "^3.0.15"
+  }
+}
