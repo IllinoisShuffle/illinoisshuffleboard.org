@@ -27,7 +27,7 @@
 
       <div class="flex lg:hidden">
         <!-- Mobile menu button -->
-        <button type="button" class="bg-indigo-600 p-2 rounded-md inline-flex items-center justify-center text-indigo-200 hover:text-white hover:bg-indigo-500 hover:bg-opacity-75 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-indigo-600 focus:ring-white" aria-controls="mobile-menu" aria-expanded="false">
+        <button type="button" onclick="toggleMobileNav()" class="bg-indigo-600 p-2 rounded-md inline-flex items-center justify-center text-indigo-200 hover:text-white hover:bg-indigo-500 hover:bg-opacity-75 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-indigo-600 focus:ring-white" aria-controls="mobile-menu" aria-expanded="false">
           <span class="sr-only">Open main menu</span>
           <!--
               Heroicon name: outline/menu
@@ -49,12 +49,28 @@
   </div>
 
   <!-- Mobile menu, show/hide based on menu state. -->
-  <div class="lg:hidden" id="mobile-menu">
+  <div class="lg:hidden hidden" id="mobile-menu">
     <div class="px-2 pt-2 pb-3 space-y-1">
-      <!-- Current: "bg-indigo-700 text-white", Default: "text-white hover:bg-indigo-500 hover:bg-opacity-75" -->
-      <a href="/" class="bg-indigo-700 text-white block rounded-md py-2 px-3 text-base font-medium" aria-current="page">
-        Home
-      </a>
+
+      {{ range .Site.Menus.navbar }}
+
+        {{ $linkClass := "text-white rounded-md py-2 px-3 text-base font-medium block hover:bg-indigo-500 hover:bg-opacity-75" }}
+        {{ if eq $currentPage.RelPermalink .URL }}
+          {{ $linkClass = "text-white rounded-md py-2 px-3 text-base font-medium block bg-indigo-700" }}
+        {{ end }}
+
+        <a href="{{.URL}}" class="{{$linkClass}}">
+          {{.Name}}
+        </a>
+      {{ end }}
+
     </div>
   </div>
 </nav>
+
+<script>
+  function toggleMobileNav() {
+    var element = document.getElementById("mobile-menu");
+    element.classList.toggle("hidden");
+  }
+</script>
