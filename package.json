@@ -17,6 +17,8 @@
   },
   "homepage": "https://github.com/IllinoisShuffle/illinoisshuffleboard.org#readme",
   "dependencies": {
+    "@tailwindcss/forms": "^0.4.0",
+    "@tailwindcss/typography": "^0.5.1",
     "autoprefixer": "^10.4.2",
     "postcss": "^8.4.5",
     "postcss-cli": "^9.1.0",
