@@ -1,0 +1,12 @@
+{{ $styles := resources.Get "tw.css" }}
+{{ $styles = $styles | resources.PostCSS }}
+{{ if  hugo.IsProduction  }}
+  {{ $styles = $styles | minify | fingerprint | resources.PostProcess }}
+{{ else if .Site.IsServer }}
+  {{ $styles = $styles | resources.ExecuteAsTemplate (printf "tailwind.dev.%v.css" now.UnixMilli) .}}
+{{ end }}
+<link href="{{ $styles.RelPermalink }}" rel="stylesheet" />
+
+<meta charset="utf-8" />
+<meta http-equiv="x-ua-compatible" content="ie=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />

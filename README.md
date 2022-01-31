@@ -1,7 +1,16 @@
-# Illinois Shuffleboard Association Website
-This repo is based on https://github.com/taylorbryant/jekyll-starter-tailwind, which has more documentation
+# The Illinois Shuffleboard Association's Website
 
-## Get started
-* `bundle install` to install Ruby gems
-* `npm ci` to install npm packages listed in `package-lock.json`
-* `npm run start` or `npm run dev` to compile the site with development settings and run BrowserSync
+Our website is built on the [Hugo](https://gohugo.io/) Framework, along with [Tailwind CSS](https://tailwindcss.com/). It is deployed to [https://www.illinoisshuffleboard.org](https://www.illinoisshuffleboard.org) with [Netlify](https://www.netlify.com/).
+
+## Developement
+
+Requirements:
+ * Hugo v0.92.0 or later
+ * NodeJS (currently tested with v17.4.0)
+
+To spin up a development environment:
+ * run `npm install` to install dependencies
+ * run `hugo server -D` to generate the site - by default this will regenerate when changes are made
+ * visit [http://localhost:1313](http://localhost:1313) to see the site
+
+ Note: there are a few issues using Hugo with Tailwind CSS version 3, we have solved them using [Jonas Duri's technique](https://dev.to/jonas_duri/how-to-use-tailwindcss-30-without-external-npm-scripts-just-hugo-pipes-2lg9).

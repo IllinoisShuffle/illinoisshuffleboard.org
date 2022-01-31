@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html class="no-js h-full bg-gray-100" lang="en-US">
+  <head>
+    {{- partial "head.html" . -}}
+  </head>
+
+  <body class="h-full">
+    <div class="min-h-full">
+      <div class="bg-indigo-600 pb-32">
+        {{- partial "navbar.html" . -}}
+
+        <header class="py-10">
+          <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <h1 class="text-4xl font-bold text-white drop-shadow-xl">
+              Illinois Shuffleboard Association
+            </h1>
+          </div>
+        </header>
+      </div>
+
+      <main class="-mt-32">
+        <div class="max-w-7xl mx-auto pb-12 px-4 sm:px-6 lg:px-8">
+          <div class="bg-white rounded-lg shadow px-5 py-6 sm:px-6">
+            {{- block "main" . }}{{- end }}
+          </div>
+        </div>
+      </main>
+    </div>
+  </body>
+</html>

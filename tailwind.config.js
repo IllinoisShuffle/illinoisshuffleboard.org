@@ -1,10 +1,10 @@
 module.exports = {
-  purge: [`_site/**/*.html`],
+  content: ['./layouts/**/*.html', './content/**/*.md', './content/**/*.html'],
   theme: {
     extend: {},
   },
-  variants: {},
   plugins: [
-    require('@tailwindcss/forms')
+    require('@tailwindcss/forms'),
+    require('@tailwindcss/typography'),
   ],
-};
+}

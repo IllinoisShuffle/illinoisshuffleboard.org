@@ -1,8 +1,6 @@
-_site
-.DS_Store
-.jekyll-cache
-.jekyll-metadata
-assets/css
-node_modules
-.bundle/
-vendor/
+/public/
+/.hugo_build.lock
+/resources/_gen/
+.idea/
+.vscode/
+node_modules/
