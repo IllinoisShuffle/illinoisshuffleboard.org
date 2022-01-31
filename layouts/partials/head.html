@@ -1,3 +1,5 @@
+<title>{{ if .IsHome }}{{ else }}{{ if .Page.Title }}{{ .Page.Title }} - {{ end }}{{ end }}{{ .Site.Title }}</title>
+
 {{ $styles := resources.Get "tw.css" }}
 {{ $styles = $styles | resources.PostCSS }}
 {{ if  hugo.IsProduction  }}
