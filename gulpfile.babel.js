@@ -63,6 +63,7 @@ task("startServer", () => {
       "**/*.js",
       "**/*.md",
       "**/*.markdown",
+      "assets/**",
       "!_site/**/*",
       "!node_modules/**/*",
     ],
