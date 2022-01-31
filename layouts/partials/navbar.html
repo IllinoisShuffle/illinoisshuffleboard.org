@@ -7,10 +7,20 @@
         </div>
         <div class="hidden lg:block lg:ml-10">
           <div class="flex space-x-4">
-            <!-- Current: "bg-indigo-700 text-white", Default: "text-white hover:bg-indigo-500 hover:bg-opacity-75" -->
-            <a href="/" class="bg-indigo-700 text-white rounded-md py-2 px-3 text-sm font-medium" aria-current="page">
-              Home
-            </a>
+
+            {{ $currentPage := . }}
+
+            {{ range .Site.Menus.navbar }}
+
+              {{ $linkClass := "text-white rounded-md py-2 px-3 text-sm font-medium hover:bg-indigo-500 hover:bg-opacity-75" }}
+              {{ if eq $currentPage.URL .URL }}
+                {{ $linkClass = "text-white rounded-md py-2 px-3 text-sm font-medium bg-indigo-700" }}
+              {{ end }}
+
+              <a href="{{.URL}}" class="{{$linkClass}}">
+                {{.Name}}
+              </a>
+            {{ end }}
           </div>
         </div>
       </div>
