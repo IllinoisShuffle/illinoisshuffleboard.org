@@ -12,9 +12,9 @@
 
             {{ range .Site.Menus.navbar }}
 
-              {{ $linkClass := "text-white rounded-md py-2 px-3 text-sm font-medium hover:bg-indigo-500 hover:bg-opacity-75" }}
+              {{ $linkClass := "no-underline text-white rounded-md py-2 px-3 text-sm font-medium hover:bg-indigo-500 hover:bg-opacity-75" }}
               {{ if eq $currentPage.RelPermalink .URL }}
-                {{ $linkClass = "text-white rounded-md py-2 px-3 text-sm font-medium bg-indigo-700" }}
+                {{ $linkClass = "no-underline text-white rounded-md py-2 px-3 text-sm font-medium bg-indigo-700" }}
               {{ end }}
 
               <a href="{{.URL}}" class="{{$linkClass}}">
@@ -54,9 +54,9 @@
 
       {{ range .Site.Menus.navbar }}
 
-        {{ $linkClass := "text-white rounded-md py-2 px-3 text-base font-medium block hover:bg-indigo-500 hover:bg-opacity-75" }}
+        {{ $linkClass := "no-underline text-white rounded-md py-2 px-3 text-base font-medium block hover:bg-indigo-500 hover:bg-opacity-75" }}
         {{ if eq $currentPage.RelPermalink .URL }}
-          {{ $linkClass = "text-white rounded-md py-2 px-3 text-base font-medium block bg-indigo-700" }}
+          {{ $linkClass = "no-underline text-white rounded-md py-2 px-3 text-base font-medium block bg-indigo-700" }}
         {{ end }}
 
         <a href="{{.URL}}" class="{{$linkClass}}">
