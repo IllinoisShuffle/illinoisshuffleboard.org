@@ -86,8 +86,7 @@ menu:
   </div>
 </div>
 
-<!-- TODO: Padding/Margin is off on mobile -->
-<div class="max-w-2xl mx-auto px-4 sm:py-24 sm:px-6 lg:px-0">
+<div class="max-w-2xl mx-auto px-4 sm:px-6 lg:px-0 py-16">
   <h1 class="text-3xl font-extrabold text-center tracking-tight text-gray-900 sm:text-4xl">Checkout</h1>
 
   <form class="mt-12">
@@ -100,9 +99,9 @@ menu:
             <div>
               <div class="flex justify-between">
                 <h4 class="text-sm">
-                  <span class="font-medium text-lg text-gray-700 hover:text-gray-800"> Annual Membership </span>
+                  <span class="font-medium text-lg text-gray-700 hover:text-gray-800">Annual Membership</span>
                 </h4>
-                <p class="ml-4 text-sm font-medium text-gray-900">$25.00</p>
+                <p class="ml-4 pt-1 text-sm font-medium text-gray-900">$25.00</p>
               </div>
               <p class="mt-1 text-sm text-gray-500">
                 Auto-renews every year - Cancel anytime
@@ -116,9 +115,9 @@ menu:
             <div>
               <div class="flex justify-between">
                 <h4 class="text-sm">
-                  <span class="font-medium text-lg text-gray-700 hover:text-gray-800"> Singles League - Spring 2022 </span>
+                  <span class="font-medium text-lg text-gray-700 hover:text-gray-800">Singles League - Spring 2022</span>
                 </h4>
-                <p class="opacity-30 ml-4 text-sm font-medium text-gray-900" id="league-price">$25.00</p>
+                <p class="opacity-30 ml-4 pt-1 text-sm font-medium text-gray-900" id="league-price">$25.00</p>
               </div>
 
               <p class="mt-1 text-sm text-gray-500">
@@ -155,10 +154,10 @@ menu:
             <div>
               <div class="flex justify-between">
                 <h4 class="text-sm">
-                  <span class="font-medium text-lg text-gray-700 hover:text-gray-800"> Additional One-Time Donation </span>
+                  <span class="font-medium text-lg text-gray-700 hover:text-gray-800">Additional One-Time Donation</span>
                 </h4>
                 <p class="ml-4 text-sm font-medium text-sm text-gray-900">
-                  <select id="additional-donation" onchange="enable_shirt()" class="mt-1 block w-full pl-3 pr-10 py-2 text-sm border-gray-300 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm rounded-md">
+                  <select id="additional-donation" onchange="enable_shirt()" class="mt-1 block w-28 pl-3 pr-10 py-2 text-sm border-gray-300 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm rounded-md">
                     <option selected>$0.00</option>
                     <option>$5.00</option>
                     <option>$10.00</option>
@@ -173,7 +172,7 @@ menu:
                 </p>
               </div>
 
-              <p class="hidden mt-1 text-sm text-red-500" id="large-donation">
+              <p class="hidden mt-1 pb-2 text-sm text-red-500" id="large-donation">
                 Thank you so much for your amazing generosity!
                 To avoid transaction fees, please email us at
                 <a href="mailto:contact@illinoisshuffleboard.org?subject=ILSA Donation" target="_blank">contact@illinoisshuffleboard.org</a>
@@ -252,7 +251,6 @@ menu:
   </form>
 </div>
 
-<!-- TODO: below overlaps on mobile -->
 <div>
   <p class="text-sm text-gray-500">
     The Illinois Shuffleboard Association is a Not-For-Profit Corporation formed in the state of Illinois.
@@ -270,19 +268,15 @@ menu:
     var total = 25; // Subsciption Price
 
     var league_element = document.getElementById('league-price');
-    var league_cost = 0;
     if(!league_element.classList.contains('opacity-30')) {
-      league_cost = 25;
+      league_cost += 25;
     }
-    total += league_cost
 
     var donation_element = document.getElementById('additional-donation');
-    var donation = 0;
     if(donation_element.value != "More") {
-      donation = parseFloat(donation_element.value.replace("$", "").replace(",", ""));
+      var donation = parseFloat(donation_element.value.replace("$", "").replace(",", ""));
+      total += donation
     }
-
-    total += donation
 
     document.getElementById('total-price').innerHTML = '$' + total.toFixed(2);
 
