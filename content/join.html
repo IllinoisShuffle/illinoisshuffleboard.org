@@ -175,7 +175,9 @@ menu:
 
               <p class="hidden mt-1 text-sm text-red-500" id="large-donation">
                 Thank you so much for your amazing generosity!
-                To avoid transaction fees, we'll be in touch to set up your donation!
+                To avoid transaction fees, please email us at
+                <a href="mailto:contact@illinoisshuffleboard.org?subject=ILSA Donation" target="_blank">contact@illinoisshuffleboard.org</a>
+                to set up your donation!
               </p>
 
               <p class="mt-1 text-sm text-gray-500">
@@ -209,7 +211,7 @@ menu:
                 If you make an additional donation of $25 or more, you'll receive ILSA's first T-Shirt at no additional cost!
               </p>
               <p class="mt-1 text-sm text-gray-500">
-                If you do not wish to receive a shirt, remove this from the cart.
+                We'll email you for sizing info.
               </p>
             </div>
 
@@ -222,9 +224,6 @@ menu:
                 <span>Estimated Distribution - May 2022</span>
               </p>
               <div class="ml-4">
-                <button id="shirt-rm" onclick="rm_shirt()" type="button" class="hidden py-2 px-3 text-sm font-medium text-indigo-600 hover:text-indigo-500 border-indigo-600 border-2 rounded-md shadow-sm">
-                  Remove
-                </button>
               </div>
             </div>
           </div>
@@ -245,7 +244,7 @@ menu:
       </div>
 
       <div class="mt-10">
-          <a href="https://buy.stripe.com/test_5kAbLccdiavh9C83cd" class="no-underline bg-indigo-600 border border-transparent rounded-md shadow-sm py-3 px-4 text-base font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-50 focus:ring-indigo-500">
+          <a href="#" id="checkout" class="no-underline bg-indigo-600 border border-transparent rounded-md shadow-sm py-3 px-4 text-base font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-50 focus:ring-indigo-500">
             Checkout
           </a>
       </div>
@@ -263,6 +262,10 @@ menu:
 </div>
 
 <script>
+  window.onload = function() {
+    calculate_total();
+  }
+
   function calculate_total() {
     var total = 25; // Subsciption Price
 
@@ -282,6 +285,29 @@ menu:
     total += donation
 
     document.getElementById('total-price').innerHTML = '$' + total.toFixed(2);
+
+    update_link();
+  }
+
+  function update_link() {
+    var test_data = JSON.parse('{"no_league":{"0":"https://buy.stripe.com/test_9AQaH83GMdHt8y43cC","5":"https://buy.stripe.com/test_3cs02u9168n95lSaF6","10":"https://buy.stripe.com/test_fZebLc3GM32P15C3cG","25":"https://buy.stripe.com/test_00gdTka5afPB7u0cNi","50":"https://buy.stripe.com/test_6oEaH83GMbzl8y4fZw","100":"https://buy.stripe.com/test_6oE7uW916bzlg0w6oY","250":"https://buy.stripe.com/test_4gw3eGcdi7j501y00C","500":"https://buy.stripe.com/test_7sI6qSb9eavh3dK5kY","1000":"https://buy.stripe.com/test_cN216yfpu6f1cOkfZE"},"league":{"0":"https://buy.stripe.com/test_7sI2aC7X2dHt15C9B1","5":"https://buy.stripe.com/test_cN2aH8b9ebzl9C8cNf","10":"https://buy.stripe.com/test_3cscPggtyfPBeWs28D","25":"https://buy.stripe.com/test_dR63eGdhmbzldSoeVr","50":"https://buy.stripe.com/test_00g6qS3GM46TcOk8x5","100":"https://buy.stripe.com/test_aEU02ugtyfPB15C00B","250":"https://buy.stripe.com/test_3cs9D44KQbzl7u03cP","500":"https://buy.stripe.com/test_9AQ9D4fpufPB4hO28N","1000":"https://buy.stripe.com/test_3cs2aC6SY7j529G00H"}}');
+    var prod_data = JSON.parse('{"no_league":{"0":"https://buy.stripe.com/cN27tWdMWeNE5zOfYY","5":"https://buy.stripe.com/dR68y0aAKcFw6DS4gi","10":"https://buy.stripe.com/4gw6pScISgVM8M0148","25":"https://buy.stripe.com/bIY5lOeR08pg0fu5kq","50":"https://buy.stripe.com/7sI9C4cIS0WO9Q45ks","100":"https://buy.stripe.com/bIYbKcbEOcFwfao00a","250":"https://buy.stripe.com/fZedSkcISbBs4vK5kw","500":"https://buy.stripe.com/7sIdSk8sC9tke6k4gu","1000":"https://buy.stripe.com/fZe6pSbEO6h83rG14k"},"league":{"0":"https://buy.stripe.com/cN2bKc24e9tk0fu8wx","5":"https://buy.stripe.com/eVa9C4fV4gVM4vKfZ1","10":"https://buy.stripe.com/cN25lOdMW7lcaU83ch","25":"https://buy.stripe.com/6oEbKc24e20SgesbIP","50":"https://buy.stripe.com/8wM01u24efRI2nC28h","100":"https://buy.stripe.com/cN2bKcaAK5d44vK00b","250":"https://buy.stripe.com/cN2cOggZ8fRId2g4gt","500":"https://buy.stripe.com/aEUbKcbEObBsaU84gv","1000":"https://buy.stripe.com/14k8y0aAK5d4ges00h"}}');
+    var data = test_data; // Update this to prod_data when we go live
+
+    var league_element = document.getElementById('league-price');
+    var league_str = "league";
+    if(league_element.classList.contains('opacity-30')) {
+      league_str = "no_league";
+    }
+
+    var donation_element = document.getElementById('additional-donation');
+    var donation = 0;
+    if(donation_element.value != "More") {
+      donation = parseInt(donation_element.value.replace("$", "").replace(",", ""));
+    }
+
+    var checkout_element = document.getElementById('checkout');
+    checkout_element.href = data[league_str][donation];
   }
 
   function add_league() {
@@ -317,26 +343,15 @@ menu:
 
     if(donation_element.value == "More") {
       shirt_element.classList.remove('opacity-30');
-      shirt_rm_element.classList.remove('hidden');
       large_donation_element.classList.remove('hidden');
     } else if(donation >= 25) {
       shirt_element.classList.remove('opacity-30');
-      shirt_rm_element.classList.remove('hidden');
       large_donation_element.classList.add('hidden');
     } else {
       shirt_element.classList.add('opacity-30');
-      shirt_rm_element.classList.add('hidden');
       large_donation_element.classList.add('hidden');
     }
 
     calculate_total();
-  }
-
-  function rm_shirt() {
-    var shirt_element = document.getElementById('shirt-item');
-    var shirt_rm_element = document.getElementById('shirt-rm');
-
-    shirt_element.classList.add('opacity-30');
-    shirt_rm_element.classList.add('hidden');
   }
 </script>
