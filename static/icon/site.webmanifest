@@ -1,0 +1,13 @@
+{
+    "name": "ILSA",
+    "short_name": "ILSA",
+    "icons": [
+        {
+            "src": "/icon/android-chrome-96x96.png",
+            "sizes": "96x96",
+            "type": "image/png"
+        }
+    ],
+    "theme_color": "#4f46e5",
+    "background_color": "#4f46e5"
+}
