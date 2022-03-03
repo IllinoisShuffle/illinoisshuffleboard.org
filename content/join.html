@@ -173,6 +173,11 @@ menu:
                 </p>
               </div>
 
+              <p class="hidden mt-1 text-sm text-red-500" id="large-donation">
+                Thank you so much for your amazing generosity!
+                To avoid transaction fees, we'll be in touch to set up your donation!
+              </p>
+
               <p class="mt-1 text-sm text-gray-500">
                 Help ILSA jump-start its mission by making an additional one-time donation.
               </p>
@@ -272,7 +277,11 @@ menu:
     total += league_cost
 
     var donation_element = document.getElementById('additional-donation');
-    var donation = parseFloat(donation_element.value.replace("$", "").replace(",", ""));
+    var donation = 0;
+    if(donation_element.value != "More") {
+      donation = parseFloat(donation_element.value.replace("$", "").replace(",", ""));
+    }
+
     total += donation
 
     document.getElementById('total-price').innerHTML = '$' + total.toFixed(2);
@@ -307,14 +316,21 @@ menu:
     var shirt_add_element = document.getElementById('shirt-add');
     var shirt_rm_element = document.getElementById('shirt-rm');
     var donation_element = document.getElementById('additional-donation');
+    var large_donation_element = document.getElementById('large-donation');
     var donation = parseFloat(donation_element.value.replace("$", "").replace(",", ""));
 
-    if(donation_element.value == "More" || donation >= 25) {
+    if(donation_element.value == "More") {
       shirt_element.classList.remove('opacity-30');
       shirt_rm_element.classList.remove('hidden');
+      large_donation_element.classList.remove('hidden');
+    } else if(donation >= 25) {
+      shirt_element.classList.remove('opacity-30');
+      shirt_rm_element.classList.remove('hidden');
+      large_donation_element.classList.add('hidden');
     } else {
       shirt_element.classList.add('opacity-30');
       shirt_rm_element.classList.add('hidden');
+      large_donation_element.classList.add('hidden');
     }
 
     calculate_total();
