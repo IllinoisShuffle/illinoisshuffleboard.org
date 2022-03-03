@@ -118,7 +118,7 @@ menu:
                 <h4 class="text-sm">
                   <span class="font-medium text-lg text-gray-700 hover:text-gray-800"> Singles League - Spring 2022 </span>
                 </h4>
-                <p class="ml-4 text-sm font-medium text-gray-900">$25.00</p>
+                <p class="hidden ml-4 text-sm font-medium text-gray-900" id="singles_league_price">$25.00</p>
               </div>
 
               <p class="mt-1 text-sm text-gray-500">
@@ -139,8 +139,11 @@ menu:
 
               </p>
               <div class="ml-4">
-                <button type="button" class="text-sm font-medium text-indigo-600 hover:text-indigo-500">
-                  <span>Remove</span>
+                <button type="button" class="py-2 px-3 text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 border-indigo-600 border-2 rounded-md shadow-sm">
+                  Add To Cart
+                </button>
+                <button type="button" class="hidden py-2 px-3 text-sm font-medium text-indigo-600 hover:text-indigo-500 border-indigo-600 border-2 rounded-md shadow-sm">
+                  Remove
                 </button>
               </div>
             </div>
@@ -156,10 +159,10 @@ menu:
                 </h4>
                 <p class="ml-4 text-sm font-medium text-sm text-gray-900">
                   <select id="location" name="location" class="mt-1 block w-full pl-3 pr-10 py-2 text-sm border-gray-300 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm rounded-md">
-                    <option>$0.00</option>
+                    <option selected>$0.00</option>
                     <option>$5.00</option>
                     <option>$10.00</option>
-                    <option selected>$25.00</option>
+                    <option>$25.00</option>
                     <option>$50.00</option>
                     <option>$100.00</option>
                     <option>$250.00</option>
@@ -189,7 +192,7 @@ menu:
             <img src="https://tailwindui.com/img/ecommerce-images/shopping-cart-page-01-product-02.jpg" alt="Front side of charcoal cotton t-shirt." class="w-24 h-24 rounded-md object-center object-cover sm:w-32 sm:h-32">
           </div>
 
-          <div class="ml-4 flex-1 flex flex-col sm:ml-6">
+          <div class="opacity-30 ml-4 flex-1 flex flex-col sm:ml-6">
             <div>
               <div class="flex justify-between">
                 <h4 class="text-sm">
@@ -214,8 +217,8 @@ menu:
                 <span>Estimated Distribution - May 2022</span>
               </p>
               <div class="ml-4">
-                <button type="button" class="text-sm font-medium text-indigo-600 hover:text-indigo-500">
-                  <span>Remove</span>
+                <button type="button" class="hidden py-2 px-3 text-sm font-medium text-indigo-600 hover:text-indigo-500 border-indigo-600 border-2 rounded-md shadow-sm">
+                  Remove
                 </button>
               </div>
             </div>
@@ -231,7 +234,7 @@ menu:
         <dl class="space-y-4">
           <div class="flex items-center justify-between">
             <dt class="text-base font-medium text-gray-900">Total</dt>
-            <dd class="ml-4 text-base font-medium text-gray-900">$75.00</dd>
+            <dd class="ml-4 text-base font-medium text-gray-900" id="total-price">$25.00</dd>
           </div>
         </dl>
       </div>
