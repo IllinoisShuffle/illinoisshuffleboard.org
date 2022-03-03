@@ -158,7 +158,7 @@ menu:
                   <span class="font-medium text-lg text-gray-700 hover:text-gray-800"> Additional One-Time Donation </span>
                 </h4>
                 <p class="ml-4 text-sm font-medium text-sm text-gray-900">
-                  <select id="location" name="location" class="mt-1 block w-full pl-3 pr-10 py-2 text-sm border-gray-300 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm rounded-md">
+                  <select id="additional-donation" onchange="enable_shirt()" class="mt-1 block w-full pl-3 pr-10 py-2 text-sm border-gray-300 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm rounded-md">
                     <option selected>$0.00</option>
                     <option>$5.00</option>
                     <option>$10.00</option>
@@ -192,7 +192,7 @@ menu:
             <img src="https://tailwindui.com/img/ecommerce-images/shopping-cart-page-01-product-02.jpg" alt="Front side of charcoal cotton t-shirt." class="w-24 h-24 rounded-md object-center object-cover sm:w-32 sm:h-32">
           </div>
 
-          <div class="opacity-30 ml-4 flex-1 flex flex-col sm:ml-6">
+          <div id="shirt-item" class="opacity-30 ml-4 flex-1 flex flex-col sm:ml-6">
             <div>
               <div class="flex justify-between">
                 <h4 class="text-sm">
@@ -217,7 +217,10 @@ menu:
                 <span>Estimated Distribution - May 2022</span>
               </p>
               <div class="ml-4">
-                <button type="button" class="hidden py-2 px-3 text-sm font-medium text-indigo-600 hover:text-indigo-500 border-indigo-600 border-2 rounded-md shadow-sm">
+                <button id="shirt-add" type="button" class="hidden py-2 px-3 text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 border-indigo-600 border-2 rounded-md shadow-sm">
+                  Add To Cart
+                </button>
+                <button id="shirt-rm" type="button" class="hidden py-2 px-3 text-sm font-medium text-indigo-600 hover:text-indigo-500 border-indigo-600 border-2 rounded-md shadow-sm">
                   Remove
                 </button>
               </div>
@@ -256,3 +259,21 @@ menu:
     If approved, donations will be tax deductible.
   </p>
 </div>
+
+<script>
+  function enable_shirt() {
+    var shirt_element = document.getElementById('shirt-item');
+    var shirt_add_element = document.getElementById('shirt-add');
+    var shirt_rm_element = document.getElementById('shirt-rm');
+    var donation_element = document.getElementById('additional-donation');
+    var donation = parseFloat(donation_element.value.replace("$", ""));
+
+    if(donation_element.value == "More" || donation >= 25) {
+      shirt_element.classList.remove('opacity-30');
+      shirt_rm_element.classList.remove('hidden');
+    } else {
+      shirt_element.classList.add('opacity-30');
+      shirt_rm_element.classList.add('hidden');
+    }
+  }
+</script>
