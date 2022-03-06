@@ -5,3 +5,5 @@
 .vscode/
 .DS_Store
 node_modules/
+generate_payment_links_prod.rb
+generate_payment_links_test.rb
