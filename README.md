@@ -2,6 +2,8 @@
 
 Our website is built on the [Hugo](https://gohugo.io/) Framework, along with [Tailwind CSS](https://tailwindcss.com/). It is deployed to [https://www.illinoisshuffleboard.org](https://www.illinoisshuffleboard.org) with [Netlify](https://www.netlify.com/).
 
+[![Netlify Status](https://api.netlify.com/api/v1/badges/a2dc1a15-5ed3-4122-a259-834327834bc1/deploy-status)](https://app.netlify.com/sites/ilsa/deploys)
+
 ## Developement
 
 Requirements:
