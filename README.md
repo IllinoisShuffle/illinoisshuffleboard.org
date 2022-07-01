@@ -7,7 +7,7 @@ Our website is built on the [Hugo](https://gohugo.io/) Framework, along with [Ta
 ## Developement
 
 Requirements:
- * Hugo v0.92.0 or later
+ * Hugo v0.101.0 or later
  * NodeJS (currently tested with v17.4.0)
 
 To spin up a development environment:
