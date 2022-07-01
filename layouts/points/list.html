@@ -1,0 +1,80 @@
+{{ define "main" }}
+
+  <h3 class="text-2xl font-extrabold text-gray-900 tracking-tight sm:text-3xl mt-6">State Points</h3>
+
+  <p class="mt-2 text-sm text-gray-700 lg:pr-32">
+    The Illinois Shuffleboard Association tracks points earned by our members in various tournaments and leagues.
+    The main purpose of points is to encourage participation in shuffleboard events, while fueling competition among our membership.
+    At this point, we will not use points to determine any kind of amateur, pro, or hall-of-fame status, but they may be used for this in the future.
+    A full breakdown of how points are earned can be found in our <a href="/documents/ILSA_State_Points_2022-04-21.pdf" target="_blank">State Points Document</a>.
+  </p>
+
+  <p class="mt-2 text-sm text-gray-700 lg:pr-32">
+    If you believe there is an error in points or you'd like to change how we display your name, email <a href="mailto:contact@illinoisshuffleboard.org" target="_blank">contact@illinoisshuffleboard.org</a>.
+  </p>
+
+  
+  <h4 class="text-xl font-semibold text-gray-900 mt-8">2022 Season</h1>
+  
+
+  <div class="inline-block min-w-full py-2 align-middle"> 
+    <table class="border-separate pl-3" style="border-spacing: 0">
+      {{ $url := "https://docs.google.com/spreadsheets/d/e/2PACX-1vScLQRh8JxhhfkZp1To8ut2KvdS0yj9Ge5dQJeXxtPRp4YzehEWxE3ft4U3wT3JGLn09T14DzBDLXQL/pub?gid=0&single=true&output=csv" }}
+      {{ $sep := "," }}
+
+      <thead class="bg-gray-50">
+        {{ range $row_i, $row := getCSV $sep $url }}
+          {{ if ne $row_i 0 }}
+            {{/* Skip unless Header */}}
+            {{ continue }}
+          {{ end }}
+
+          <tr>
+            {{ range $col_i, $col := $row }}
+              {{ if eq $col_i 0 }}
+                {{/* if first column */}}
+                <th scope="col" class="sticky top-0 z-10 border-b border-gray-300 bg-gray-50 bg-opacity-75 p-4 text-left text-sm font-semibold text-gray-900 backdrop-blur backdrop-filter">
+                  {{ $col }}
+                </th>
+              {{ else }}
+                <th scope="col" class="sticky top-0 z-10 w-24 border-b border-gray-300 bg-gray-50 bg-opacity-75 p-4 text-center text-sm font-semibold text-gray-900 backdrop-blur backdrop-filter">
+                  {{ $col }}
+                </th>
+              {{ end }}
+            {{ end }}
+          </tr>
+        {{ end }}
+      </thead>
+
+      <tbody class="bg-white">
+        {{ range $row_i, $row := getCSV $sep $url }}
+          {{ if eq $row_i 0 }}
+            {{/* Skip Header */}}
+            {{ continue }}
+          {{ end }}
+
+          {{ if eq (index $row 1) "0" }}
+            {{/* Skip Players with 0 Total Points */}}
+            {{ continue }}
+          {{ end }}
+
+            <tr>
+              {{ range $col_i, $col := $row }}
+
+                {{ if eq $col_i 0 }}
+                  {{/* if first column */}}
+                  <td class="whitespace-nowrap border-b border-gray-200 p-4 text-sm">
+                    {{ $col }}
+                  </td>
+                {{ else }}
+                  <td class="whitespace-nowrap border-b border-gray-200 p-4 text-sm text-center">
+                    {{ $col }}
+                  </td>
+                {{ end }}
+              {{ end }}
+            </tr>
+          {{ end }}
+      </tbody>
+    </table>
+  </div>
+{{ end }}
