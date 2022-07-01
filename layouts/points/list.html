@@ -1,0 +1,59 @@
+{{ define "main" }}
+
+  <h3 class="text-2xl font-extrabold text-gray-900 tracking-tight sm:text-3xl mt-6">State Points</h3>
+
+  <p class="mt-2 text-sm text-gray-700 lg:pr-32">
+    The Illinois Shuffleboard Association tracks points earned by our members in various tournaments and leagues.
+    The main purpose of points is to encourage participation in shuffleboard events, while fueling competition among our membership.
+    At this point, we will not use points to determine any kind of amateur, pro, or hall-of-fame status, but they may be used for this in the future.
+    A full breakdown of how points are earned can be found in our <a href="/documents/ILSA_State_Points_2022-04-21.pdf" target="_blank">State Points Document</a>.
+  </p>
+
+  <p class="mt-2 text-sm text-gray-700 lg:pr-32">
+    If you believe there is an error in points or you'd like to change how we display your name, email <a href="mailto:contact@illinoisshuffleboard.org" target="_blank">contact@illinoisshuffleboard.org</a>.
+  </p>
+
+  
+  <h4 class="text-xl font-semibold text-gray-900 mt-8">2022 Season</h1>
+  
+
+  <div class="inline-block min-w-full py-2 align-middle"> 
+    <table class="border-separate pl-3" style="border-spacing: 0">
+      <thead class="bg-gray-50">
+        <tr>
+          <th scope="col" class="sticky top-0 z-10 border-b border-gray-300 bg-gray-50 bg-opacity-75 p-4 text-left text-sm font-semibold text-gray-900 backdrop-blur backdrop-filter">
+            Name
+          </th>
+          <th scope="col" class="sticky top-0 z-10 border-b border-gray-300 bg-gray-50 bg-opacity-75 p-4 text-left text-sm font-semibold text-gray-900 backdrop-blur backdrop-filter">
+            Points
+          </th>
+        </tr>
+      </thead>
+
+      <tbody class="bg-white">
+        {{ $url := "https://docs.google.com/spreadsheets/d/e/2PACX-1vScLQRh8JxhhfkZp1To8ut2KvdS0yj9Ge5dQJeXxtPRp4YzehEWxE3ft4U3wT3JGLn09T14DzBDLXQL/pub?gid=0&single=true&output=csv" }}
+        {{ $sep := "," }}
+        {{ range $i, $row := getCSV $sep $url }}
+          {{ if eq $i 0 }}
+            {{/* Skip Header */}}
+            {{ continue }}
+          {{ end }}
+
+          {{ if eq (index $row 1) "0" }}
+            {{/* Skip Players with 0 Total Points */}}
+            {{ continue }}
+          {{ end }}
+
+            <tr>
+              <td class="whitespace-nowrap border-b border-gray-200 p-4 text-sm">
+                {{ index $row 0 }}
+              </td>
+              <td class="whitespace-nowrap border-b border-gray-200 p-4 text-sm text-right">
+                {{ index $row 1 }}
+              </td>
+            </tr>
+          {{ end }}
+      </tbody>
+    </table>
+  </div>
+{{ end }}
