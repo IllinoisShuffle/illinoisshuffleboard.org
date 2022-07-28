@@ -9,3 +9,8 @@
   from = "/national"
   to = "https://ti.to/ilsa/national-2022"
   status = 302
+
+[[redirects]]
+  from = "/rules"
+  to = "/documents/ILSA_Rules_of_Play_1.0.pdf"
+  status = 302
