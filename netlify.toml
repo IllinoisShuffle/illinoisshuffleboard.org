@@ -12,5 +12,5 @@
 
 [[redirects]]
   from = "/rules"
-  to = "https://illinoisshuffleboard.org/documents/ILSA_Rules_of_Play_1.0.pdf"
+  to = "/documents/ILSA_Rules_of_Play_1.0.pdf"
   status = 302
