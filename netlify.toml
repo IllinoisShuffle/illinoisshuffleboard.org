@@ -14,3 +14,8 @@
   from = "/rules"
   to = "/documents/ILSA_Rules_of_Play_1.0.pdf"
   status = 302
+
+[[redirects]]
+  from = "/standings"
+  to = "https://docs.google.com/spreadsheets/d/1-nabMHTzU6FD_Jur7fUZDlSWBBP-AGiA48pzXXMMEyY/edit#gid=121158609"
+  status = 302
