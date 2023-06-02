@@ -19,3 +19,8 @@
   from = "/standings"
   to = "https://docs.google.com/spreadsheets/d/19-xCRRzkzEw0slwRZK-NGP6hnwQC-zm5JW_bNdFlN98/edit?usp=sharing"
   status = 302
+
+[[redirects]]
+  from = "/volunteer"
+  to = "https://forms.monday.com/forms/592838ff4e44aa098fb60441646ff4d9"
+  status = 302
