@@ -24,3 +24,8 @@
   from = "/volunteer"
   to = "https://forms.monday.com/forms/592838ff4e44aa098fb60441646ff4d9"
   status = 302
+
+[[redirects]]
+  from = "/garden"
+  to = "https://docs.google.com/forms/d/e/1FAIpQLSfw0Ps_Xk3oOkX98somTXErqyv9lLXubDtKRpRnDkM5UaWBGA/viewform"
+  status = 302
