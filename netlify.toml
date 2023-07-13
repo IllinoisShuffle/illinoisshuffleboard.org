@@ -29,3 +29,13 @@
   from = "/garden"
   to = "https://docs.google.com/forms/d/e/1FAIpQLSfw0Ps_Xk3oOkX98somTXErqyv9lLXubDtKRpRnDkM5UaWBGA/viewform"
   status = 302
+
+[[redirects]]
+  from = "/l/banner-join"
+  to = "/join"
+  status = 302
+
+[[redirects]]
+  from = "/l/banner-donate"
+  to = "/donate"
+  status = 302
