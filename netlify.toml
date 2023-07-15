@@ -32,10 +32,10 @@
 
 [[redirects]]
   from = "/l/banner-join"
-  to = "https://givebutter.com/FOHP"
+  to = "/join"
   status = 302
 
 [[redirects]]
   from = "/l/banner-donate"
-  to = "/donate"
+  to = "https://givebutter.com/FOHP"
   status = 302
