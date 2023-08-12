@@ -37,5 +37,10 @@
 
 [[redirects]]
   from = "/l/banner-donate"
-  to = "https://givebutter.com/FOHP"
+  to = "/donate"
+  status = 302
+
+[[redirects]]
+  from = "/l/national-info"
+  to = "https://drive.google.com/file/d/1-4ZWbxwzxV1kRMLky--1nCPSjT2Nh0Xb/view"
   status = 302
