@@ -44,3 +44,18 @@
   from = "/l/national-info"
   to = "https://drive.google.com/file/d/1-4ZWbxwzxV1kRMLky--1nCPSjT2Nh0Xb/view"
   status = 302
+
+[[redirects]]
+  from = "/l/national-guide"
+  to = "https://drive.google.com/file/d/1cTnnigKFmV2KqlNiuTYs5jU9xtcMp3rM/view"
+  status = 302
+
+[[redirects]]
+  from = "/l/national-map"
+  to = "https://www.google.com/maps/d/u/0/viewer?mid=18cT5KcCzO3bNkPRdn5Ts4O-XImTGAhI&ll=41.91111613969203%2C-87.67730553778867&z=17"
+  status = 302
+
+[[redirects]]
+  from = "/l/bio"
+  to = "https://lnk.bio/illinoisshuffleboard"
+  status = 302
