@@ -17,7 +17,7 @@
 
 [[redirects]]
   from = "/standings"
-  to = "https://docs.google.com/spreadsheets/d/19-xCRRzkzEw0slwRZK-NGP6hnwQC-zm5JW_bNdFlN98/edit?usp=sharing"
+  to = "https://docs.google.com/spreadsheets/d/1QwfTgNYT3LDersFp8sq21QBZ8C6BAxLtNSdbVWi_gKE/edit#gid=121158609"
   status = 302
 
 [[redirects]]
@@ -53,6 +53,11 @@
 [[redirects]]
   from = "/l/national-map"
   to = "https://www.google.com/maps/d/u/0/viewer?mid=18cT5KcCzO3bNkPRdn5Ts4O-XImTGAhI&ll=41.91111613969203%2C-87.67730553778867&z=17"
+  status = 302
+
+[[redirects]]
+  from = "/l/national-standings"
+  to = "https://docs.google.com/spreadsheets/d/1QwfTgNYT3LDersFp8sq21QBZ8C6BAxLtNSdbVWi_gKE/edit#gid=121158609"
   status = 302
 
 [[redirects]]
