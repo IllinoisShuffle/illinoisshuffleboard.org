@@ -61,6 +61,11 @@
   status = 302
 
 [[redirects]]
+  from = "/l/national-speed-shuffle"
+  to = "https://docs.google.com/forms/d/e/1FAIpQLSfjg4bkwfw-Xcwtn6OLsQc1Uc_OW3atjVQ5JhJmJRDyqbwOcg/viewform?usp=sf_link"
+  status = 302
+
+[[redirects]]
   from = "/l/bio"
   to = "https://lnk.bio/illinoisshuffleboard"
   status = 302
