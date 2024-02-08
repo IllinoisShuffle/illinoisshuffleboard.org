@@ -1,6 +1,6 @@
 ---
 title: "Tyler Berry"
-position: "Secretary"
-order: 4
+position: "2nd Vice-President"
+order: 3
 thumbnail: "/img/board/tyler-berry.jpg"
 ---
