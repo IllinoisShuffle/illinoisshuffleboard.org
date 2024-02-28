@@ -69,3 +69,8 @@
   from = "/l/bio"
   to = "https://lnk.bio/illinoisshuffleboard"
   status = 302
+
+[[redirects]]
+  from "/l/discord"
+  to = "https://discord.gg/XUJm3ctWEw"
+  status = 302
