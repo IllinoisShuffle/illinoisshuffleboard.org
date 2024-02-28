@@ -71,6 +71,6 @@
   status = 302
 
 [[redirects]]
-  from "/l/discord"
+  from = "/l/discord"
   to = "https://discord.gg/XUJm3ctWEw"
   status = 302
