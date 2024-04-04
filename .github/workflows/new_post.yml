@@ -1,0 +1,35 @@
+name: New Post
+
+on:
+  workflow_dispatch:
+    inputs:
+      post_title:
+        description: 'Post Title'
+        required: true
+        type: string
+      publish_date:
+        description: 'Publish Date (YYYY-MM-DD)'
+        required: true
+        default: 'YYYY-MM-DD'
+        type: string
+      expiry_date:
+        description: 'Expiry Date (YYYY-MM-DD)'
+        required: false
+        type: string
+
+jobs:
+  build:
+    name: Add templated post to repo
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+      - name: Copy Template to New Post
+        run: ruby .github/create_blank_post.rb "${{ inputs.post_title }}" ${{ inputs.publish_date }}-04-02 ${{ inputs.expiry_date }}
+      - name: 'Commit file to repo'
+        run: |
+          git config --global user.name "GitHub Actions"
+          git config --global user.email "noreply@illinoisshuffleboard.org"
+          git add content/posts
+          git commit -m "Create new post from GitHub Actions"
+          git push
