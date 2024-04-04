@@ -2,7 +2,15 @@
 title: "Watch the Singles Winter League Finals"
 date: 2024-04-04
 expiryDate: 2024-04-15
-draft: true
+draft: false
 ---
 
-Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+We are down to the Final 4 of both our Main and Consolation Playoffs, mark your calendar with the following dates to come watch them play!
+
+Consolation: Thursday, April 4th 7pm-9pm
+ - Joey Spangler vs Mike Schmitt
+ - Ian McKee vs Bill Kirchhoff
+
+Main: Sunday, April 14th 1pm-3pm
+ - Max Julius vs Mat Savill
+ - Kevin Wickman vs Jordon Novak
