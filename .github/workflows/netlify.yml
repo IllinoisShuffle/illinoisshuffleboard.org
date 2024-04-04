@@ -1,19 +1,16 @@
+name: Rebuild Site
+
 on:
   schedule:
     - cron: '5 6 * * *'
   workflow_dispatch:
 
-name: Publish on Netlify
-
 jobs:
-  publish:
+  build:
+    name: Request Netlify Webhook
     runs-on: ubuntu-latest
-
+    env:
+      TRIGGER_ID: ${{ secrets.NETLIFY_TRIGGER_ID}}
     steps:
-    - uses: actions/checkout@master
-
-    - name: Publish
-      uses: netlify/actions/build@master
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}
+      - name: Curl request
+        run: curl -X POST -d "trigger_branch=main&trigger_title=Triggered+by+GitHub+Actions&clear_cache=true" "https://api.netlify.com/build_hooks/$TRIGGER_ID"
