@@ -1,3 +1,24 @@
 {{- define "main" -}}
     {{.Page.Content}}
+
+    {{ $posts := where .Site.RegularPages "Section" "posts" }}
+    {{ if gt ( len $posts ) 0 }}
+        <h2 class="text-2xl font-extrabold text-gray-900 tracking-tight sm:text-3xl mt-6">Latest News</h3>
+
+        {{range where .Site.RegularPages "Section" "posts" }}
+            <article class="ml-6">
+                <h3 class="text-xl font-extrabold text-gray-900 tracking-tight sm:text-xl mt-6">
+                    {{ .Title }}
+                </h3>
+
+                <h4 class="text-s text-gray-500 tracking-tight sm:text-s">
+                    Published {{ .Date.Format "Jan 2, 2006" }}
+                </h4>
+
+                {{ .Content | replaceRE "<p>" "<p class=\"mt-2 text-sm text-gray-700 lg:pr-32\">" | safeHTML}}
+
+            </article>
+        {{ end }}
+    {{ end }}
+
 {{- end }}
