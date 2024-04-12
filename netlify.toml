@@ -7,7 +7,12 @@
 
 [[redirects]]
   from = "/national"
-  to = "https://lnk.bio/illinoisshuffleboard"
+  to = "https://docs.google.com/forms/d/e/1FAIpQLSeGlHFXOa7YB65S4oYdwRVcf_69fY66Mx1H4pOnywWNQyflrA/viewform?usp=sf_link"
+  status = 302
+
+[[redirects]]
+  from = "/lottery"
+  to = "https://docs.google.com/forms/d/e/1FAIpQLSeGlHFXOa7YB65S4oYdwRVcf_69fY66Mx1H4pOnywWNQyflrA/viewform?usp=sf_link"
   status = 302
 
 [[redirects]]
@@ -42,27 +47,27 @@
 
 [[redirects]]
   from = "/l/national-info"
-  to = "https://drive.google.com/file/d/1-4ZWbxwzxV1kRMLky--1nCPSjT2Nh0Xb/view"
+  to = "https://docs.google.com/forms/d/e/1FAIpQLSeGlHFXOa7YB65S4oYdwRVcf_69fY66Mx1H4pOnywWNQyflrA/viewform?usp=sf_link"
   status = 302
 
 [[redirects]]
   from = "/l/national-guide"
-  to = "https://drive.google.com/file/d/1cTnnigKFmV2KqlNiuTYs5jU9xtcMp3rM/view"
+  to = "https://docs.google.com/forms/d/e/1FAIpQLSeGlHFXOa7YB65S4oYdwRVcf_69fY66Mx1H4pOnywWNQyflrA/viewform?usp=sf_link"
   status = 302
 
 [[redirects]]
   from = "/l/national-map"
-  to = "https://www.google.com/maps/d/u/0/viewer?mid=18cT5KcCzO3bNkPRdn5Ts4O-XImTGAhI&ll=41.91111613969203%2C-87.67730553778867&z=17"
+  to = "https://docs.google.com/forms/d/e/1FAIpQLSeGlHFXOa7YB65S4oYdwRVcf_69fY66Mx1H4pOnywWNQyflrA/viewform?usp=sf_link"
   status = 302
 
 [[redirects]]
   from = "/l/national-standings"
-  to = "https://docs.google.com/spreadsheets/d/1QwfTgNYT3LDersFp8sq21QBZ8C6BAxLtNSdbVWi_gKE/edit#gid=121158609"
+  to = "https://docs.google.com/forms/d/e/1FAIpQLSeGlHFXOa7YB65S4oYdwRVcf_69fY66Mx1H4pOnywWNQyflrA/viewform?usp=sf_link"
   status = 302
 
 [[redirects]]
   from = "/l/national-speed-shuffle"
-  to = "https://docs.google.com/forms/d/e/1FAIpQLSfjg4bkwfw-Xcwtn6OLsQc1Uc_OW3atjVQ5JhJmJRDyqbwOcg/viewform?usp=sf_link"
+  to = "https://docs.google.com/forms/d/e/1FAIpQLSeGlHFXOa7YB65S4oYdwRVcf_69fY66Mx1H4pOnywWNQyflrA/viewform?usp=sf_link"
   status = 302
 
 [[redirects]]
