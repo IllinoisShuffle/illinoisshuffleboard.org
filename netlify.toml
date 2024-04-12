@@ -6,11 +6,6 @@
   HUGO_VERSION = "0.101.0"
 
 [[redirects]]
-  from = "/national"
-  to = "https://docs.google.com/forms/d/e/1FAIpQLSeGlHFXOa7YB65S4oYdwRVcf_69fY66Mx1H4pOnywWNQyflrA/viewform?usp=sf_link"
-  status = 302
-
-[[redirects]]
   from = "/lottery"
   to = "https://docs.google.com/forms/d/e/1FAIpQLSeGlHFXOa7YB65S4oYdwRVcf_69fY66Mx1H4pOnywWNQyflrA/viewform?usp=sf_link"
   status = 302
@@ -46,28 +41,33 @@
   status = 302
 
 [[redirects]]
+  from = "/nationals"
+  to = "/national"
+  status = 302
+
+[[redirects]]
   from = "/l/national-info"
-  to = "https://docs.google.com/forms/d/e/1FAIpQLSeGlHFXOa7YB65S4oYdwRVcf_69fY66Mx1H4pOnywWNQyflrA/viewform?usp=sf_link"
+  to = "/national"
   status = 302
 
 [[redirects]]
   from = "/l/national-guide"
-  to = "https://docs.google.com/forms/d/e/1FAIpQLSeGlHFXOa7YB65S4oYdwRVcf_69fY66Mx1H4pOnywWNQyflrA/viewform?usp=sf_link"
+  to = "/national"
   status = 302
 
 [[redirects]]
   from = "/l/national-map"
-  to = "https://docs.google.com/forms/d/e/1FAIpQLSeGlHFXOa7YB65S4oYdwRVcf_69fY66Mx1H4pOnywWNQyflrA/viewform?usp=sf_link"
+  to = "/national"
   status = 302
 
 [[redirects]]
   from = "/l/national-standings"
-  to = "https://docs.google.com/forms/d/e/1FAIpQLSeGlHFXOa7YB65S4oYdwRVcf_69fY66Mx1H4pOnywWNQyflrA/viewform?usp=sf_link"
+  to = "/national"
   status = 302
 
 [[redirects]]
   from = "/l/national-speed-shuffle"
-  to = "https://docs.google.com/forms/d/e/1FAIpQLSeGlHFXOa7YB65S4oYdwRVcf_69fY66Mx1H4pOnywWNQyflrA/viewform?usp=sf_link"
+  to = "/national"
   status = 302
 
 [[redirects]]
