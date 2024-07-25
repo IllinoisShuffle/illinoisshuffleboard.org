@@ -46,6 +46,11 @@
   status = 302
 
 [[redirects]]
+  from = "/l/national-badge"
+  to = "/national"
+  status = 302
+
+[[redirects]]
   from = "/l/national-info"
   to = "/national"
   status = 302
