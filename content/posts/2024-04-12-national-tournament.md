@@ -1,7 +1,7 @@
 ---
 title: "Chicago National Tournament"
 date: 2024-04-12
-expiryDate: 2024-08-12
+expiryDate: 2024-08-08
 draft: false
 ---
 
