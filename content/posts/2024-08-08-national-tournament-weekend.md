@@ -11,5 +11,6 @@ It's time for our **National Any Doubles Tournament**! We're welcoming 128 playe
 
 More information:
  - [Bracket / Standings](https://illinoisshuffleboard.org/standings)
+ - [Rules](https://illinoisshuffleboard.org/rules)
  - [Tournament Info Packet](https://drive.google.com/file/d/1Tq8uZyN-DhKigSQ0cemJzw5LWU-GmZm2/view)
  - [Additional Links](https://lnk.bio/illinoisshuffleboard)
