@@ -42,6 +42,11 @@
   status = 302
 
 [[redirects]]
+  from = "/national"
+  to = "https://lnk.bio/ILLINOISSHUFFLEBOARD"
+  status = 302
+
+[[redirects]]
   from = "/nationals"
   to = "/national"
   status = 302
