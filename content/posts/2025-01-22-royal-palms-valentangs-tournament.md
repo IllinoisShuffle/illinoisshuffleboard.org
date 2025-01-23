@@ -2,7 +2,23 @@
 title: "Royal Palms Valentangs Tournament"
 date: 2025-01-22
 expiryDate: 2025-02-18
-draft: true
+draft: false
 ---
 
-Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+Royal Palms Chicago is hosting a Singles Tournament on Sunday, February 16th!
+Details and registration can be found at [https://app.recrec.io/events/0PvuVj](https://app.recrec.io/events/0PvuVj).
+ILSA Points will be awarded to ILSA members that compete in this tournament.
+
+If between 33 and 64 players compete, points will be given as follows:
+- 1st Place: 19 points
+- 2nd Place: 13 points
+- 3rd Place: 11 points ^
+- 4th Place: 9 points
+- 5th-8th Place: 8 points
+- 9th-16th Place: 6 points
+- 17th-32nd Place: 4 points
+- Full Participation: 2 points
+
+^ only if 3rd place game is played
+
+More information on how points are awarded can be found in our [State Points Document](https://www.illinoisshuffleboard.org/documents/ILSA%20State%20Points%202.0.pdf).
