@@ -20,5 +20,3 @@ If between 33 and 64 players compete, points will be given as follows:
 - Full Participation: 2 points
 
 ^ only if 3rd place game is played
-
-More information on how points are awarded can be found in our [State Points Document](https://www.illinoisshuffleboard.org/documents/ILSA%20State%20Points%202.0.pdf).
