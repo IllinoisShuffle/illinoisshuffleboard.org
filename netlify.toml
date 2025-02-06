@@ -90,6 +90,11 @@
   status = 302
 
 [[redirects]]
+  from = "/report-points"
+  to = "https://forms.gle/w9HrzHT5M4pikzFZA"
+  status = 302
+
+[[redirects]]
   from = "/l/discord"
   to = "https://discord.gg/XUJm3ctWEw"
   status = 302
