@@ -1,0 +1,25 @@
+{
+	"name": "Ubuntu",
+	"image": "mcr.microsoft.com/devcontainers/base:ubuntu-22.04",
+	"features": {
+		"ghcr.io/devcontainers/features/hugo:1": {
+			"extended": true,
+			"version": "0.127.0"
+		},
+		"ghcr.io/devcontainers-contrib/features/gh-cli:1": {},
+		"ghcr.io/devcontainers/features/node:1": {
+			"version": "22"
+		}
+	},
+	"customizations": {
+		"vscode": {
+			"extensions": [
+				"budparr.language-hugo-vscode",
+        "davidanson.vscode-markdownlint",
+        "github.copilot"
+			]
+		}
+	},
+	"forwardPorts": [1313],
+  "postCreateCommand": "npm install && hugo serve -D"
+}
