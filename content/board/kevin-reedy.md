@@ -1,6 +1,6 @@
 ---
 title: "Kevin Reedy"
-position: "President"
-order: 1
+position: "Past President"
+order: 8
 thumbnail: "/img/board/kevin-reedy.jpg"
 ---

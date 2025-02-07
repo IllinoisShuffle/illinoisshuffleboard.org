@@ -1,6 +1,6 @@
 ---
 title: "Lauren Seesel"
-position: "Secretary"
-order: 4
+position: "President"
+order: 1
 thumbnail: "/img/board/lauren-seesel.jpg"
 ---

@@ -1,6 +1,6 @@
 ---
 title: "Jordon Novak"
 position: "Treasurer"
-order: 5
+order: 4
 thumbnail: "/img/board/jordon-novak.jpg"
 ---

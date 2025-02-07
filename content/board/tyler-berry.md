@@ -1,6 +1,6 @@
 ---
 title: "Tyler Berry"
-position: "2nd Vice-President"
-order: 3
+position: "Director of Growth and Outreach"
+order: 7
 thumbnail: "/img/board/tyler-berry.jpg"
 ---
