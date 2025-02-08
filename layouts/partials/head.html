@@ -1,10 +1,10 @@
 <title>{{ if .IsHome }}{{ else }}{{ if .Page.Title }}{{ .Page.Title }} - {{ end }}{{ end }}{{ .Site.Title }}</title>
 
 {{ $styles := resources.Get "tw.css" }}
-{{ $styles = $styles | resources.PostCSS }}
+{{ $styles = $styles | css.PostCSS }}
 {{ if  hugo.IsProduction  }}
   {{ $styles = $styles | minify | fingerprint | resources.PostProcess }}
-{{ else if .Site.IsServer }}
+{{ else if hugo.IsServer }}
   {{ $styles = $styles | resources.ExecuteAsTemplate (printf "tailwind.dev.%v.css" now.UnixMilli) .}}
 {{ end }}
 <link href="{{ $styles.RelPermalink }}" rel="stylesheet" />
