@@ -98,3 +98,8 @@
   from = "/l/discord"
   to = "https://discord.gg/XUJm3ctWEw"
   status = 302
+
+[[redirects]]
+  from = "/duck"
+  to = "https://sites.google.com/illinoisshuffleboard.org/whattheduck/home"
+  status = 302
