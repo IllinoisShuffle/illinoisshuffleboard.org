@@ -5,10 +5,7 @@
 [build.environment]
   HUGO_VERSION = "0.143.1"
 
-[[redirects]]
-  from = "/lottery"
-  to = "https://docs.google.com/spreadsheets/d/1Lagz2L2OY4-xQD8S988wPGWtMpgx9bSrlaiTlJEjohI/edit?usp=drivesdk"
-  status = 302
+# ####### general ILSA links ####### 
 
 [[redirects]]
   from = "/rules"
@@ -16,19 +13,8 @@
   status = 302
 
 [[redirects]]
-  from = "/standings"
-  to = "https://docs.google.com/spreadsheets/d/1n5CiZWCNREF4X8LowHtJZocw0M-yJA2tAlGFP7kb14A/edit?usp=sharing"
-  status = 302
-  # now points to 2024 bracket
-
-[[redirects]]
   from = "/volunteer"
-  to = "https://forms.monday.com/forms/592838ff4e44aa098fb60441646ff4d9"
-  status = 302
-
-[[redirects]]
-  from = "/garden"
-  to = "https://docs.google.com/forms/d/e/1FAIpQLSfw0Ps_Xk3oOkX98somTXErqyv9lLXubDtKRpRnDkM5UaWBGA/viewform"
+  to = "https://forms.gle/vYRcQb3JhAdks5cN7"
   status = 302
 
 [[redirects]]
@@ -39,6 +25,46 @@
 [[redirects]]
   from = "/l/banner-donate"
   to = "/donate"
+  status = 302
+
+[[redirects]]
+  from = "/l/bio"
+  to = "https://lnk.bio/illinoisshuffleboard"
+  status = 302
+
+[[redirects]]
+  from = "/report-points"
+  to = "https://forms.gle/w9HrzHT5M4pikzFZA"
+  status = 302
+
+[[redirects]]
+  from = "/l/discord"
+  to = "https://discord.gg/XUJm3ctWEw"
+  status = 302
+
+#  ####### national tournament links ####### 
+
+[[redirects]]
+  from = "/lottery"
+  to = "https://forms.gle/PYBHJfH9QHPG5az6A"
+  status = 302
+  # now points to 2025 lottery entry form
+
+[[redirects]]
+  from = "/lottery-faq"
+  to = "https://drive.google.com/file/d/17U6DvWxn6JiykiQfhXXgop9HHJBi-7I-/view?usp=sharing"
+  status = 302
+  # now points to 2025 pdf
+
+[[redirects]]
+  from = "/standings"
+  to = "https://docs.google.com/spreadsheets/d/1n5CiZWCNREF4X8LowHtJZocw0M-yJA2tAlGFP7kb14A/edit?usp=sharing"
+  status = 302
+  # now points to 2024 bracket
+
+[[redirects]]
+  from = "/garden"
+  to = "https://docs.google.com/forms/d/e/1FAIpQLSfw0Ps_Xk3oOkX98somTXErqyv9lLXubDtKRpRnDkM5UaWBGA/viewform"
   status = 302
 
 [[redirects]]
@@ -84,22 +110,9 @@
   status = 302
   # points to 2024 sign-up form
 
-[[redirects]]
-  from = "/l/bio"
-  to = "https://lnk.bio/illinoisshuffleboard"
-  status = 302
-
-[[redirects]]
-  from = "/report-points"
-  to = "https://forms.gle/w9HrzHT5M4pikzFZA"
-  status = 302
-
-[[redirects]]
-  from = "/l/discord"
-  to = "https://discord.gg/XUJm3ctWEw"
-  status = 302
+#  ####### event specific links ####### 
 
 [[redirects]]
   from = "/duck"
-  to = "https://sites.google.com/illinoisshuffleboard.org/whattheduck/home"
+  to = "https://app.recrec.io/events/NXDuGB"
   status = 302
