@@ -46,9 +46,9 @@
 
 [[redirects]]
   from = "/lottery"
-  to = "https://forms.gle/PYBHJfH9QHPG5az6A"
+  to = "https://docs.google.com/spreadsheets/d/1Gi-otAAGUBaqjHzIIM6zJWq4iBHNgxsxeN9GZFikBsc/edit?gid=1237102943#gid=1237102943"
   status = 302
-  # now points to 2025 lottery entry form
+  # now points to 2025 lottery selection google sheet
 
 [[redirects]]
   from = "/lottery-faq"
@@ -61,11 +61,6 @@
   to = "https://docs.google.com/spreadsheets/d/1n5CiZWCNREF4X8LowHtJZocw0M-yJA2tAlGFP7kb14A/edit?usp=sharing"
   status = 302
   # now points to 2024 bracket
-
-[[redirects]]
-  from = "/garden"
-  to = "https://docs.google.com/forms/d/e/1FAIpQLSfw0Ps_Xk3oOkX98somTXErqyv9lLXubDtKRpRnDkM5UaWBGA/viewform"
-  status = 302
 
 [[redirects]]
   from = "/national"
@@ -115,4 +110,9 @@
 [[redirects]]
   from = "/duck"
   to = "https://app.recrec.io/events/NXDuGB"
+  status = 302
+  
+[[redirects]]
+  from = "/garden"
+  to = "https://docs.google.com/forms/d/e/1FAIpQLSfw0Ps_Xk3oOkX98somTXErqyv9lLXubDtKRpRnDkM5UaWBGA/viewform"
   status = 302
