@@ -13,6 +13,12 @@
   status = 302
 
 [[redirects]]
+  from = "/howtoplay"
+  to = "/documents/ILSA%20-%20Rules%20of%20Play%20-%201.1.pdf"
+  status = 302
+  # now points to full rules, later to lightweight rules
+
+[[redirects]]
   from = "/volunteer"
   to = "https://forms.gle/vYRcQb3JhAdks5cN7"
   status = 302
