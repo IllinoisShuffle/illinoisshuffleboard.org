@@ -122,3 +122,9 @@
   from = "/garden"
   to = "https://docs.google.com/forms/d/e/1FAIpQLSfw0Ps_Xk3oOkX98somTXErqyv9lLXubDtKRpRnDkM5UaWBGA/viewform"
   status = 302
+  
+[[redirects]]
+  from = "/doubles-report"
+  to = "https://forms.gle/aTE6fQg1caFgHyN17"
+  status = 302
+  # points to summer 2025 reporting form
