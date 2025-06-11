@@ -122,7 +122,14 @@
   from = "/garden"
   to = "https://docs.google.com/forms/d/e/1FAIpQLSfw0Ps_Xk3oOkX98somTXErqyv9lLXubDtKRpRnDkM5UaWBGA/viewform"
   status = 302
+
+[[redirects]]
+  from = "/shuffle101"
+  to = "https://app.recrec.io/events/ZRBu96"
+  status = 302
   
+#  ####### league links ####### 
+
 [[redirects]]
   from = "/doubles-report"
   to = "https://forms.gle/aTE6fQg1caFgHyN17"
