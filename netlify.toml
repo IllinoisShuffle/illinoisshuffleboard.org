@@ -79,6 +79,11 @@
   status = 302
 
 [[redirects]]
+  from = "/national-store"
+  to = "https://chicago-national-tournament-merchandise.square.site/"
+  status = 302
+
+[[redirects]]
   from = "/l/national-badge"
   to = "https://lnk.bio/ILLINOISSHUFFLEBOARD"
   status = 302
@@ -110,11 +115,6 @@
   to = "https://docs.google.com/forms/d/e/1FAIpQLSfvj3sfCsWoPnBS4fh-xeS1LJCQhRDlw2gaKn8O-qw0q6sI8A/viewform"
   status = 302
   # points to 2024 sign-up form
-
-[[redirects]]
-  from = "/l/national-store"
-  to = "https://chicago-national-tournament-merchandise.square.site/"
-  status = 302
 
 #  ####### event specific links ####### 
 
