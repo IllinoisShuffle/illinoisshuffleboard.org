@@ -111,6 +111,11 @@
   status = 302
   # points to 2024 sign-up form
 
+[[redirects]]
+  from = "/l/national-store"
+  to = "https://chicago-national-tournament-merchandise.square.site/"
+  status = 302
+
 #  ####### event specific links ####### 
 
 [[redirects]]
