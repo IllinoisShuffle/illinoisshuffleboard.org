@@ -79,6 +79,11 @@
   status = 302
 
 [[redirects]]
+  from = "/national-store"
+  to = "https://chicago-national-tournament-merchandise.square.site/"
+  status = 302
+
+[[redirects]]
   from = "/l/national-badge"
   to = "https://lnk.bio/ILLINOISSHUFFLEBOARD"
   status = 302
