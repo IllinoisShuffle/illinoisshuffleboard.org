@@ -140,3 +140,11 @@
   to = "https://forms.gle/aTE6fQg1caFgHyN17"
   status = 302
   # points to summer 2025 reporting form
+
+#  ####### other stuff ####### 
+
+[[redirects]]
+  from = "/natalie-qr-code"
+  to = "https://forms.gle/beVnqPtRe5mm3qfU8"
+  status = 302
+  # points to natl tournament volunteer signup
