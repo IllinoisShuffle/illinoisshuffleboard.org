@@ -64,9 +64,9 @@
 
 [[redirects]]
   from = "/standings"
-  to = "https://docs.google.com/spreadsheets/d/1n5CiZWCNREF4X8LowHtJZocw0M-yJA2tAlGFP7kb14A/edit?usp=sharing"
+  to = "https://docs.google.com/spreadsheets/d/1FAIppioHDaAQNwZwvhCqJrbab_t3Adn5Nyk0LPAoiD0/edit?usp=sharing"
   status = 302
-  # now points to 2024 bracket
+  # now points to 2025 bracket
 
 [[redirects]]
   from = "/national"
@@ -90,9 +90,9 @@
 
 [[redirects]]
   from = "/l/national-info"
-  to = "https://drive.google.com/file/d/1Tq8uZyN-DhKigSQ0cemJzw5LWU-GmZm2/view?usp=sharing"
+  to = "https://drive.google.com/file/d/1hv7G3QzCrusnaO3fSdNbOJeTp1CLb1hJ/view"
   status = 302
-  # points to 2024 player packet
+  # points to 2025 player packet
 
 [[redirects]]
   from = "/l/national-guide"
@@ -106,15 +106,15 @@
 
 [[redirects]]
   from = "/l/national-standings"
-  to = "https://docs.google.com/spreadsheets/d/1n5CiZWCNREF4X8LowHtJZocw0M-yJA2tAlGFP7kb14A/edit?usp=sharing"
+  to = "https://docs.google.com/spreadsheets/d/1FAIppioHDaAQNwZwvhCqJrbab_t3Adn5Nyk0LPAoiD0/edit?usp=sharing"
   status = 302
-  # points to 2024 bracket
+  # points to 2025 bracket
 
 [[redirects]]
   from = "/l/national-speed-shuffle"
-  to = "https://docs.google.com/forms/d/e/1FAIpQLSfvj3sfCsWoPnBS4fh-xeS1LJCQhRDlw2gaKn8O-qw0q6sI8A/viewform"
+  to = "https://docs.google.com/forms/d/e/1FAIpQLScN7jhfVne0ffq2n_nszLGh1PeuQwMg74Q28729EkU1_kAMMg/viewform"
   status = 302
-  # points to 2024 sign-up form
+  # points to 2025 sign-up form
 
 #  ####### event specific links ####### 
 
