@@ -96,8 +96,9 @@
 
 [[redirects]]
   from = "/l/national-guide"
-  to = "/national"
+  to = "https://drive.google.com/file/d/1-5TWvtIUxkeqyxwvwWLlPg9dio_GPqM_/view"
   status = 302
+  # points to 2025 chicago guide
 
 [[redirects]]
   from = "/l/national-map"
