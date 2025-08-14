@@ -142,6 +142,12 @@
   status = 302
   # points to summer 2025 reporting form
 
+[[redirects]]
+  from = "/singles-report"
+  to = "https://forms.gle/inaoVH6a1G56kbDB8"
+  status = 302
+  # points to fall 2025 reporting form
+
 #  ####### other stuff ####### 
 
 [[redirects]]
