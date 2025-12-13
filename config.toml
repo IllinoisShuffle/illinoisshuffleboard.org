@@ -1,3 +1,8 @@
 baseURL = 'https://illinoisshuffleboard.org/'
 languageCode = 'en-us'
 title = 'Illinois Shuffleboard Association'
+
+[markup]
+  [markup.goldmark]
+    [markup.goldmark.renderer]
+      unsafe = true

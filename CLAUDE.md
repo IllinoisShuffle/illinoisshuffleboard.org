@@ -4,7 +4,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Project Overview
 
-Illinois Shuffleboard Association website built with Hugo (v0.143.1) static site generator and Tailwind CSS v3. The site is deployed to https://www.illinoisshuffleboard.org via Netlify.
+Illinois Shuffleboard Association website built with Hugo (v0.152.2) static site generator and Tailwind CSS v3. The site is deployed to https://www.illinoisshuffleboard.org via Netlify.
 
 ## Development Commands
 
