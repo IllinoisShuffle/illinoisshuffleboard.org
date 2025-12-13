@@ -6,7 +6,7 @@
   HUGO_VERSION = "0.152.2"
   NODE_VERSION = "22.13.1"
   AWS_LAMBDA_JS_RUNTIME = "nodejs22.x"
-  NETLIFY_BUILD_IMAGE = "jammy"
+  NETLIFY_USE_JAMMY = "true"
 
 # ####### general ILSA links ####### 
 
