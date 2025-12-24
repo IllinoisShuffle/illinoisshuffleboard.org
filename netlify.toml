@@ -54,13 +54,13 @@
   from = "/volunteer"
   to = "https://forms.gle/vYRcQb3JhAdks5cN7"
   status = 302
-  # Volunteer signup Google Form
+  # Volunteer Interest Form
 
 [[redirects]]
   from = "/report-points"
   to = "https://forms.gle/w9HrzHT5M4pikzFZA"
   status = 302
-  # Form for reporting tournament points
+  # Missing or Incorrect State Points
 
 # Social and External Links
 [[redirects]]
@@ -111,7 +111,7 @@
   from = "/l/national-badge"
   to = "https://lnk.bio/ILLINOISSHUFFLEBOARD"
   status = 302
-  # Badge/graphic linking to national tournament info
+  # QR code on the back of the badges for the National
 
 [[redirects]]
   from = "/l/national-info"

@@ -17,8 +17,8 @@ module.exports = {
     extend: {
       // Example custom configurations:
       // colors: {
-      //   'ilsa-blue': '#1e40af',
-      //   'ilsa-red': '#dc2626',
+      //   'ilsa-yellow': '#f5ee54',
+      //   'ilsa-purple': '#4f46e5',
       // },
       // fontFamily: {
       //   sans: ['Inter', 'sans-serif'],
