@@ -1,3 +1,28 @@
+# Hugo Site Configuration
+# Documentation: https://gohugo.io/getting-started/configuration/
+
+# Base URL of the site - used for generating absolute URLs in RSS feeds, sitemaps, etc.
+# Should match the production domain (with trailing slash)
 baseURL = 'https://illinoisshuffleboard.org/'
+
+# Language code for the site - affects date formatting and some built-in strings
+# Format: ISO 639-1 language code
 languageCode = 'en-us'
+
+# Site title - appears in <title> tags, RSS feeds, and templates via {{ .Site.Title }}
 title = 'Illinois Shuffleboard Association'
+
+# Additional configuration options that could be added:
+#
+# enableRobotsTXT = true              # Generate robots.txt automatically
+# enableGitInfo = true                # Use Git commit dates for lastmod
+# disableKinds = ["taxonomy", "term"] # Disable unused content types
+#
+# [params]                            # Custom site parameters
+#   description = "Site description"
+#   author = "Author name"
+#
+# [markup]                            # Markdown rendering configuration
+#   [markup.goldmark]
+#     [markup.goldmark.renderer]
+#       unsafe = true                 # Allow raw HTML in Markdown

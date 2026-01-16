@@ -1,157 +1,250 @@
+# Netlify Configuration
+# Documentation: https://docs.netlify.com/configure-builds/file-based-configuration/
+
+# ========================================
+# Build Settings
+# ========================================
+
 [build]
+  # Command to build the site - runs Hugo static site generator
   command = "hugo"
+
+  # Directory containing the built site files to deploy
+  # Hugo generates static files in public/ by default
   publish = "public/"
 
 [build.environment]
+  # Hugo version to use for builds
+  # Must match the version used for local development
+  # Update both this and README.md when upgrading Hugo
   HUGO_VERSION = "0.143.1"
 
-# ####### general ILSA links ####### 
+# ========================================
+# URL Redirects
+# ========================================
+# Redirects provide short, memorable URLs that redirect to longer destinations
+# Status 302 = temporary redirect (can be changed later)
+# Status 301 = permanent redirect (search engines update their indexes)
+#
+# Format:
+# [[redirects]]
+#   from = "/short-url"        # The short URL path
+#   to = "https://destination" # Where to redirect to
+#   status = 302               # HTTP status code
 
+# ========================================
+# General ILSA Links
+# ========================================
+
+# Rules and Documentation
 [[redirects]]
   from = "/rules"
   to = "/documents/ILSA%20-%20Rules%20of%20Play%20-%201.1.pdf"
   status = 302
+  # Short link to official rules of play
 
 [[redirects]]
   from = "/howtoplay"
   to = "/documents/ILSA%20-%20Rules%20of%20Play%20-%201.1.pdf"
   status = 302
-  # now points to full rules, later to lightweight rules
+  # Alternate URL for rules - eventually may point to simplified version
 
+# Forms and Signups
 [[redirects]]
   from = "/volunteer"
   to = "https://forms.gle/vYRcQb3JhAdks5cN7"
   status = 302
-
-[[redirects]]
-  from = "/l/banner-join"
-  to = "/join"
-  status = 302
-
-[[redirects]]
-  from = "/l/banner-donate"
-  to = "/donate"
-  status = 302
-
-[[redirects]]
-  from = "/l/bio"
-  to = "https://lnk.bio/illinoisshuffleboard"
-  status = 302
+  # Volunteer Interest Form
 
 [[redirects]]
   from = "/report-points"
   to = "https://forms.gle/w9HrzHT5M4pikzFZA"
   status = 302
+  # Missing or Incorrect State Points
+
+# Social and External Links
+[[redirects]]
+  from = "/l/bio"
+  to = "https://lnk.bio/illinoisshuffleboard"
+  status = 302
+  # Linktree-style bio page with multiple links
 
 [[redirects]]
   from = "/l/discord"
   to = "https://discord.gg/XUJm3ctWEw"
   status = 302
+  # ILSA Discord server invite
 
-#  ####### national tournament links ####### 
+# Internal Navigation
+[[redirects]]
+  from = "/l/banner-join"
+  to = "/join"
+  status = 302
+  # Trackable link for banner/ad campaigns
 
 [[redirects]]
-  from = "/lottery"
-  to = "https://docs.google.com/spreadsheets/d/1Gi-otAAGUBaqjHzIIM6zJWq4iBHNgxsxeN9GZFikBsc/edit?gid=1237102943#gid=1237102943"
+  from = "/l/banner-donate"
+  to = "/donate"
   status = 302
-  # now points to 2025 lottery selection google sheet
+  # Trackable link for donation campaigns
 
-[[redirects]]
-  from = "/lottery-faq"
-  to = "https://drive.google.com/file/d/17U6DvWxn6JiykiQfhXXgop9HHJBi-7I-/view?usp=sharing"
-  status = 302
-  # now points to 2025 pdf
+# ========================================
+# National Tournament Links
+# ========================================
+# These links are updated annually for each national tournament
+# Remember to update the year in comments when changing URLs
 
-[[redirects]]
-  from = "/standings"
-  to = "https://docs.google.com/spreadsheets/d/1FAIppioHDaAQNwZwvhCqJrbab_t3Adn5Nyk0LPAoiD0/edit?usp=sharing"
-  status = 302
-  # now points to 2025 bracket
-
+# Tournament Information
 [[redirects]]
   from = "/national"
   to = "https://lnk.bio/ILLINOISSHUFFLEBOARD"
   status = 302
+  # Main national tournament information hub
 
 [[redirects]]
   from = "/nationals"
   to = "/national"
   status = 302
-
-[[redirects]]
-  from = "/national-store"
-  to = "https://chicago-national-tournament-merchandise.square.site/"
-  status = 302
+  # Alternate spelling redirects to /national
 
 [[redirects]]
   from = "/l/national-badge"
   to = "https://lnk.bio/ILLINOISSHUFFLEBOARD"
   status = 302
+  # QR code on the back of the badges for the National
 
 [[redirects]]
   from = "/l/national-info"
   to = "https://drive.google.com/file/d/1hv7G3QzCrusnaO3fSdNbOJeTp1CLb1hJ/view"
   status = 302
-  # points to 2025 player packet
+  # 2025 player packet PDF
 
 [[redirects]]
   from = "/l/national-guide"
   to = "https://drive.google.com/file/d/1-5TWvtIUxkeqyxwvwWLlPg9dio_GPqM_/view"
   status = 302
-  # points to 2025 chicago guide
+  # 2025 Chicago city guide PDF
 
 [[redirects]]
   from = "/l/national-map"
   to = "https://www.google.com/maps/d/u/0/viewer?mid=18cT5KcCzO3bNkPRdn5Ts4O-XImTGAhI&ll=41.91111613969203%2C-87.67730553778867&z=17"
   status = 302
+  # Map of tournament venues and local attractions
+
+# Tournament Registration and Brackets
+[[redirects]]
+  from = "/lottery"
+  to = "https://docs.google.com/spreadsheets/d/1Gi-otAAGUBaqjHzIIM6zJWq4iBHNgxsxeN9GZFikBsc/edit?gid=1237102943#gid=1237102943"
+  status = 302
+  # 2025 lottery selection spreadsheet
+
+[[redirects]]
+  from = "/lottery-faq"
+  to = "https://drive.google.com/file/d/17U6DvWxn6JiykiQfhXXgop9HHJBi-7I-/view?usp=sharing"
+  status = 302
+  # 2025 lottery FAQ PDF
+
+[[redirects]]
+  from = "/standings"
+  to = "https://docs.google.com/spreadsheets/d/1FAIppioHDaAQNwZwvhCqJrbab_t3Adn5Nyk0LPAoiD0/edit?usp=sharing"
+  status = 302
+  # 2025 tournament bracket and standings
 
 [[redirects]]
   from = "/l/national-standings"
   to = "https://docs.google.com/spreadsheets/d/1FAIppioHDaAQNwZwvhCqJrbab_t3Adn5Nyk0LPAoiD0/edit?usp=sharing"
   status = 302
-  # points to 2025 bracket
+  # Alternate link to standings
 
+# Tournament Activities
 [[redirects]]
   from = "/l/national-speed-shuffle"
   to = "https://docs.google.com/forms/d/e/1FAIpQLScN7jhfVne0ffq2n_nszLGh1PeuQwMg74Q28729EkU1_kAMMg/viewform"
   status = 302
-  # points to 2025 sign-up form
+  # 2025 speed shuffle competition signup
 
-#  ####### event specific links ####### 
+# Tournament Merchandise
+[[redirects]]
+  from = "/national-store"
+  to = "https://chicago-national-tournament-merchandise.square.site/"
+  status = 302
+  # Official tournament merchandise store
+
+# ========================================
+# Event-Specific Links
+# ========================================
+# Temporary links for specific events
+# These can be deleted after events conclude
 
 [[redirects]]
   from = "/duck"
   to = "https://app.recrec.io/events/NXDuGB"
   status = 302
-  
+  # "What the Duck" fundraiser event registration
+
 [[redirects]]
   from = "/garden"
   to = "https://docs.google.com/forms/d/e/1FAIpQLSfw0Ps_Xk3oOkX98somTXErqyv9lLXubDtKRpRnDkM5UaWBGA/viewform"
   status = 302
+  # Garden event signup form
 
 [[redirects]]
   from = "/shuffle101"
   to = "https://app.recrec.io/seasons/3XNC55/info"
   status = 302
-  
-#  ####### league links ####### 
+  # Shuffle 101 beginner league information
+
+# ========================================
+# League Links
+# ========================================
+# Forms for league score reporting
+# Updated seasonally (Spring/Summer/Fall/Winter)
 
 [[redirects]]
   from = "/doubles-report"
   to = "https://forms.gle/aTE6fQg1caFgHyN17"
   status = 302
-  # points to summer 2025 reporting form
+  # Summer 2025 doubles league score reporting
 
 [[redirects]]
   from = "/singles-report"
   to = "https://forms.gle/inaoVH6a1G56kbDB8"
   status = 302
-  # points to fall 2025 reporting form
+  # Fall 2025 singles league score reporting
 
-#  ####### other stuff ####### 
+# ========================================
+# Miscellaneous Links
+# ========================================
 
 [[redirects]]
   from = "/natalie-qr-code"
   to = "https://forms.gle/beVnqPtRe5mm3qfU8"
   status = 302
-  # points to natl tournament volunteer signup
+  # National tournament volunteer signup (via QR code)
+
+# ========================================
+# Notes for Maintainers
+# ========================================
+#
+# When updating redirects:
+# 1. Update the destination URL
+# 2. Update the comment with the current year/season
+# 3. Test the redirect after deploying
+# 4. Consider using 301 for permanent redirects
+#
+# To add a new redirect:
+# 1. Choose a short, memorable path (e.g., /myevent)
+# 2. Add a [[redirects]] block with from, to, and status
+# 3. Add a comment explaining what it links to
+# 4. Commit and push - Netlify will apply on next deploy
+#
+# Common patterns:
+# - Event links: /eventname
+# - Tracking links: /l/source-name
+# - Forms: descriptive names like /volunteer
+# - Documents: match the document name (e.g., /rules)
+#
+# Avoid:
+# - Special characters in URLs
+# - Very long paths
+# - Paths that conflict with site pages
