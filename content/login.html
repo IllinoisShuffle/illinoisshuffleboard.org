@@ -1,0 +1,241 @@
+---
+title: "Member Login"
+draft: false
+menu:
+  navbar:
+    name: Member Login
+    weight: 100
+---
+
+<div class="py-6 max-w-md mx-auto px-4 sm:px-6 lg:px-8">
+  <div class="text-center">
+    <h2 class="text-base text-indigo-600 font-semibold tracking-wide uppercase">Member Portal</h2>
+    <p class="mt-2 text-3xl leading-8 font-extrabold tracking-tight text-gray-900 sm:text-4xl">Sign In</p>
+    <p class="mt-4 text-gray-500">
+      Enter your email address to receive a login code.
+    </p>
+  </div>
+
+  <!-- Email Step -->
+  <div id="email-step" class="mt-8">
+    <form id="email-form" class="space-y-6">
+      <div>
+        <label for="email" class="block text-sm font-medium text-gray-700">Email address</label>
+        <div class="mt-1">
+          <input type="email" id="email" name="email" autocomplete="email" required
+            class="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+            placeholder="your@email.com">
+        </div>
+      </div>
+
+      <div>
+        <button type="submit" id="email-submit"
+          class="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 disabled:opacity-50 disabled:cursor-not-allowed">
+          Send Login Code
+        </button>
+      </div>
+    </form>
+  </div>
+
+  <!-- Code Step (initially hidden) -->
+  <div id="code-step" class="mt-8 hidden">
+    <form id="code-form" class="space-y-6">
+      <div>
+        <label for="code" class="block text-sm font-medium text-gray-700">Enter your 6-digit code</label>
+        <p class="mt-1 text-sm text-gray-500">We sent a code to <span id="sent-email" class="font-medium text-indigo-600"></span></p>
+        <div class="mt-2">
+          <input type="text" id="code" name="code" autocomplete="one-time-code" required
+            maxlength="6" pattern="[0-9]{6}" inputmode="numeric"
+            class="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm text-center text-2xl tracking-widest"
+            placeholder="000000">
+        </div>
+      </div>
+
+      <div>
+        <button type="submit" id="code-submit"
+          class="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 disabled:opacity-50 disabled:cursor-not-allowed">
+          Verify Code
+        </button>
+      </div>
+
+      <div class="text-center">
+        <button type="button" id="back-btn" class="text-sm text-indigo-600 hover:text-indigo-500">
+          Use a different email
+        </button>
+      </div>
+    </form>
+  </div>
+
+  <!-- Error/Success Messages -->
+  <div id="message" class="mt-4 hidden">
+    <div id="message-content" class="rounded-md p-4">
+      <p id="message-text" class="text-sm"></p>
+    </div>
+  </div>
+
+  <!-- Loading indicator -->
+  <div id="loading" class="mt-4 hidden">
+    <div class="flex justify-center">
+      <svg class="animate-spin h-6 w-6 text-indigo-600" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+        <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+        <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+      </svg>
+    </div>
+  </div>
+</div>
+
+<div class="relative mt-8">
+  <div class="absolute inset-0 flex items-center" aria-hidden="true">
+    <div class="w-full border-t border-gray-300"></div>
+  </div>
+</div>
+
+<div class="mt-8 text-center">
+  <p class="text-sm text-gray-500">
+    Not a member yet? <a href="/join/" class="font-medium text-indigo-600 hover:text-indigo-500">Join ILSA</a>
+  </p>
+</div>
+
+<script>
+(function() {
+  let challengeToken = null;
+  let userEmail = null;
+
+  const emailStep = document.getElementById('email-step');
+  const codeStep = document.getElementById('code-step');
+  const emailForm = document.getElementById('email-form');
+  const codeForm = document.getElementById('code-form');
+  const emailInput = document.getElementById('email');
+  const codeInput = document.getElementById('code');
+  const sentEmailSpan = document.getElementById('sent-email');
+  const backBtn = document.getElementById('back-btn');
+  const messageDiv = document.getElementById('message');
+  const messageContent = document.getElementById('message-content');
+  const messageText = document.getElementById('message-text');
+  const loadingDiv = document.getElementById('loading');
+
+  function showMessage(text, isError = false) {
+    messageText.textContent = text;
+    messageContent.className = isError
+      ? 'rounded-md p-4 bg-red-50'
+      : 'rounded-md p-4 bg-green-50';
+    messageText.className = isError
+      ? 'text-sm text-red-700'
+      : 'text-sm text-green-700';
+    messageDiv.classList.remove('hidden');
+  }
+
+  function hideMessage() {
+    messageDiv.classList.add('hidden');
+  }
+
+  function showLoading() {
+    loadingDiv.classList.remove('hidden');
+  }
+
+  function hideLoading() {
+    loadingDiv.classList.add('hidden');
+  }
+
+  function showEmailStep() {
+    emailStep.classList.remove('hidden');
+    codeStep.classList.add('hidden');
+    hideMessage();
+    challengeToken = null;
+  }
+
+  function showCodeStep() {
+    emailStep.classList.add('hidden');
+    codeStep.classList.remove('hidden');
+    hideMessage();
+    sentEmailSpan.textContent = userEmail;
+    codeInput.value = '';
+    codeInput.focus();
+  }
+
+  // Handle email form submission
+  emailForm.addEventListener('submit', async function(e) {
+    e.preventDefault();
+    hideMessage();
+
+    userEmail = emailInput.value.trim().toLowerCase();
+    if (!userEmail) return;
+
+    showLoading();
+    document.getElementById('email-submit').disabled = true;
+
+    try {
+      const response = await fetch('/.netlify/functions/auth-request', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email: userEmail }),
+      });
+
+      const data = await response.json();
+
+      if (response.ok) {
+        challengeToken = data.challengeToken;
+        showCodeStep();
+        showMessage('If you have an active membership, a code has been sent to your email.');
+      } else {
+        showMessage(data.error || 'An error occurred. Please try again.', true);
+      }
+    } catch (error) {
+      console.error('Error:', error);
+      showMessage('An error occurred. Please try again.', true);
+    } finally {
+      hideLoading();
+      document.getElementById('email-submit').disabled = false;
+    }
+  });
+
+  // Handle code form submission
+  codeForm.addEventListener('submit', async function(e) {
+    e.preventDefault();
+    hideMessage();
+
+    const code = codeInput.value.trim();
+    if (!code || code.length !== 6) {
+      showMessage('Please enter a 6-digit code.', true);
+      return;
+    }
+
+    showLoading();
+    document.getElementById('code-submit').disabled = true;
+
+    try {
+      const response = await fetch('/.netlify/functions/auth-verify', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ challengeToken, code }),
+      });
+
+      const data = await response.json();
+
+      if (response.ok && data.success) {
+        showMessage('Login successful! Redirecting...');
+        setTimeout(() => {
+          window.location.href = data.redirectUrl || '/member/';
+        }, 500);
+      } else {
+        showMessage(data.error || 'Invalid code. Please try again.', true);
+        codeInput.select();
+      }
+    } catch (error) {
+      console.error('Error:', error);
+      showMessage('An error occurred. Please try again.', true);
+    } finally {
+      hideLoading();
+      document.getElementById('code-submit').disabled = false;
+    }
+  });
+
+  // Handle back button
+  backBtn.addEventListener('click', showEmailStep);
+
+  // Auto-format code input (numbers only)
+  codeInput.addEventListener('input', function(e) {
+    this.value = this.value.replace(/[^0-9]/g, '').slice(0, 6);
+  });
+})();
+</script>
