@@ -1,6 +1,7 @@
 /public/
 /.hugo_build.lock
 /resources/_gen/
+/hugo_stats.json
 .idea/
 .vscode/
 .DS_Store

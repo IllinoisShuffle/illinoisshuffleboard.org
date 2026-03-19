@@ -1,13 +1,17 @@
 <title>{{ if .IsHome }}{{ else }}{{ if .Page.Title }}{{ .Page.Title }} - {{ end }}{{ end }}{{ .Site.Title }}</title>
 
-{{ $styles := resources.Get "tw.css" }}
-{{ $styles = $styles | css.PostCSS }}
-{{ if  hugo.IsProduction  }}
-  {{ $styles = $styles | minify | fingerprint | resources.PostProcess }}
-{{ else if hugo.IsServer }}
-  {{ $styles = $styles | resources.ExecuteAsTemplate (printf "tailwind.dev.%v.css" now.UnixMilli) .}}
+{{ with resources.Get "css/main.css" }}
+  {{ $opts := dict "minify" hugo.IsProduction }}
+  {{ with . | css.TailwindCSS $opts }}
+    {{ if hugo.IsProduction }}
+      {{ with . | fingerprint }}
+        <link rel="stylesheet" href="{{ .RelPermalink }}" integrity="{{ .Data.Integrity }}" crossorigin="anonymous">
+      {{ end }}
+    {{ else }}
+      <link rel="stylesheet" href="{{ .RelPermalink }}">
+    {{ end }}
+  {{ end }}
 {{ end }}
-<link href="{{ $styles.RelPermalink }}" rel="stylesheet" />
 
 <meta charset="utf-8" />
 <meta http-equiv="x-ua-compatible" content="ie=edge" />
