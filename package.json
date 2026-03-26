@@ -16,12 +16,9 @@
     "url": "https://github.com/IllinoisShuffle/illinoisshuffleboard.org/issues"
   },
   "homepage": "https://github.com/IllinoisShuffle/illinoisshuffleboard.org#readme",
-  "dependencies": {
-    "@tailwindcss/forms": "^0.4.0",
-    "@tailwindcss/typography": "^0.5.1",
-    "autoprefixer": "^10.4.2",
-    "postcss": "^8.4.5",
-    "postcss-cli": "^9.1.0",
-    "tailwindcss": "^3.0.15"
+  "devDependencies": {
+    "@tailwindcss/cli": "^4.0.0",
+    "@tailwindcss/typography": "^0.5.15",
+    "tailwindcss": "^4.0.0"
   }
 }

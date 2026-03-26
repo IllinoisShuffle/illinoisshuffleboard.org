@@ -2,6 +2,20 @@ baseURL = 'https://illinoisshuffleboard.org/'
 languageCode = 'en-us'
 title = 'Illinois Shuffleboard Association'
 
+[build]
+  [build.buildStats]
+    enable = true
+
+  [[build.cachebusters]]
+    source = "assets/css/main\\.css"
+    target = "css"
+  [[build.cachebusters]]
+    source = "(postcss|tailwind)\\.config\\.js"
+    target = "css"
+  [[build.cachebusters]]
+    source = "hugo_stats\\.json"
+    target = "css"
+
 [markup]
   [markup.goldmark]
     [markup.goldmark.renderer]

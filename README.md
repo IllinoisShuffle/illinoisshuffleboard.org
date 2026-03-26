@@ -39,16 +39,12 @@ Or use the GitHub Actions workflow "New Post" via the repository's Actions tab t
 
 ### Hugo + Tailwind CSS Integration
 
-The project uses [Jonas Duri's technique](https://dev.to/jonas_duri/how-to-use-tailwindcss-30-without-external-npm-scripts-just-hugo-pipes-2lg9) to integrate Tailwind CSS 3 with Hugo without external npm scripts. Key aspects:
+The project uses Hugo's native [`css.TailwindCSS`](https://gohugo.io/functions/css/tailwindcss/) function with Tailwind CSS v4:
 
-- **Tailwind entry point**: `assets/tw.css` contains Tailwind directives
-- **PostCSS processing**: Handled via Hugo Pipes in `layouts/partials/head.html`
-- **Development mode**: Uses `ExecuteAsTemplate` with timestamp to force Tailwind regeneration on file changes
-- **Production mode**: Minifies, fingerprints, and post-processes CSS
-
-Configuration files:
-- `tailwind.config.js`: Scans `layouts/**/*.html`, `content/**/*.md`, `content/**/*.html`
-- `postcss.config.js`: Runs Tailwind and Autoprefixer
+- **Tailwind entry point**: `assets/css/main.css` contains Tailwind directives
+- **Processing**: Hugo's built-in Tailwind support handles CSS compilation
+- **Production mode**: Minifies and fingerprints CSS for cache busting
+- **Build stats**: Hugo generates `hugo_stats.json` to track used CSS classes
 
 ### Content Structure
 
@@ -103,11 +99,12 @@ Update redirects by editing the `[[redirects]]` sections in `netlify.toml`.
 
 ## Key Configuration Files
 
-- `config.toml`: Hugo site configuration (baseURL, title, language)
+- `config.toml`: Hugo site configuration (baseURL, title, language, build stats)
 - `netlify.toml`: Build settings, Hugo version, and all URL redirects
 - `.node-version`: Specifies Node.js version (v22.13.1)
 - `.github/workflows/new_post.yml`: GitHub Actions workflow to create posts
 - `.github/create_blank_post.rb`: Ruby script for post generation
+- `assets/css/main.css`: Tailwind CSS entry point
 
 ## Deployment
 
