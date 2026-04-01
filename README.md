@@ -21,6 +21,40 @@ The development server auto-reloads on file changes.
 
 You can also use [GitHub Codespaces](https://github.com/codespaces) or [VSCode Dev Containers](https://code.visualstudio.com/docs/devcontainers/tutorial) as a development environment.
 
+### Local Development with Netlify (Functions + Identity)
+
+To test Netlify Functions and Identity locally, you need a free Netlify account.
+
+**One-time setup:**
+1. `npm install` (installs netlify-cli)
+2. `npx netlify login` — authenticate with your Netlify account
+3. `npx netlify link` — link to an existing site or create a new one
+4. Copy `.env.example` to `.env` and fill in values (use Stripe test keys)
+
+**Running:**
+```bash
+npm run dev   # runs at http://localhost:8888
+```
+
+Netlify Identity connects live to your linked Netlify site. Enable Identity on that site in the Netlify dashboard (Site settings → Identity → Enable).
+
+**Testing Decap CMS locally:**
+
+Run the CMS proxy in a separate terminal:
+```bash
+npm run cms-proxy   # runs on port 8081
+```
+
+In your local copy of `static/admin/config.yml`, add `local_backend: true` (do not commit):
+```yaml
+local_backend: true
+backend:
+  name: git-gateway
+  ...
+```
+
+Then visit `http://localhost:8888/admin/` — the CMS reads/writes directly to your local filesystem without requiring Identity.
+
 ### Creating Content
 
 To create a new post:
