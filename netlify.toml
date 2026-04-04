@@ -133,6 +133,11 @@
   from = "/shuffle101"
   to = "https://app.recrec.io/seasons/3XNC55/info"
   status = 302
+
+[[redirects]]
+  from = "/toc-qr-code"
+  to = "https://docs.google.com/spreadsheets/d/1HIz7Nddc4pHybdnIaAzAb-0kXW_hHxHtgvX-Svwo26c/edit?usp=sharing"
+  status = 302
   
 #  ####### league links ####### 
 
