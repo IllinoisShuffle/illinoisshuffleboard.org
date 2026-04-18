@@ -52,9 +52,9 @@
 
 [[redirects]]
   from = "/lottery"
-  to = "https://docs.google.com/spreadsheets/d/1Gi-otAAGUBaqjHzIIM6zJWq4iBHNgxsxeN9GZFikBsc/edit?gid=1237102943#gid=1237102943"
+  to = "https://forms.gle/JCyNL4Ap64dCtTvX9"
   status = 302
-  # now points to 2025 lottery selection google sheet
+  # now points to 2026 lottery signup form
 
 [[redirects]]
   from = "/lottery-faq"
