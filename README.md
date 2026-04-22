@@ -23,37 +23,175 @@ You can also use [GitHub Codespaces](https://github.com/codespaces) or [VSCode D
 
 ### Local Development with Netlify (Functions + Identity)
 
-To test Netlify Functions and Identity locally, you need a free Netlify account.
+This section covers setting up your own personal Netlify account to test the full
+Netlify feature set — Identity, Git Gateway, and Functions. Not everything requires
+a Netlify account; see the table below.
+
+| What you want to test | Netlify account required? | GitHub write access required? |
+|---|---|---|
+| Hugo site rendering, content, CSS | No | No |
+| Decap CMS (local filesystem only) | No | No |
+| Netlify Functions + env vars | Yes (free tier) | No |
+| Netlify Identity (login/signup) | Yes — personal site must be deployed | No |
+| Git Gateway (CMS writes to GitHub) | Yes | Yes |
+
+---
+
+#### Tier 1: Basic Site (No Netlify Account)
+
+```bash
+npm install
+hugo server -D
+```
+
+Visit [http://localhost:1313](http://localhost:1313). Sufficient for all template,
+content, and CSS work.
+
+---
+
+#### Tier 2: Functions + Environment Variables
 
 **One-time setup:**
-1. `npm install` (installs netlify-cli)
-2. `npx netlify login` — authenticate with your Netlify account
-3. `npx netlify link` — link to an existing site or create a new one
-4. Copy `.env.example` to `.env` and fill in values (use Stripe test keys)
+
+1. Create a free account at [netlify.com](https://www.netlify.com/).
+
+2. Authenticate the CLI:
+   ```bash
+   npm install
+   npx netlify login
+   ```
+
+3. Create a personal Netlify site connected to this repo:
+   - Netlify dashboard → "Add new site" → "Import an existing project"
+   - Connect GitHub → select `IllinoisShuffle/illinoisshuffleboard.org`
+   - Build command: `hugo`, publish directory: `public/`
+   - Deploy to any branch (your personal dev branch is safest — see Tier 4)
+
+4. Link your local clone to your personal site:
+   ```bash
+   npx netlify link
+   ```
+
+5. Create your `.env` file using the helper script:
+   ```bash
+   bash scripts/setup-dev.sh
+   ```
+   Then fill in the remaining values in `.env`:
+   - `STRIPE_SECRET_KEY` — Stripe test key (`sk_test_...`) from [dashboard.stripe.com](https://dashboard.stripe.com/)
+   - `RESEND_API_KEY` — from [resend.com](https://resend.com/) (leave blank if not testing email)
+   - `SITE_URL` — already set to `http://localhost:8888`
 
 **Running:**
 ```bash
-npm run dev   # runs at http://localhost:8888
+npm run dev   # starts at http://localhost:8888
 ```
 
-Netlify Identity connects live to your linked Netlify site. Enable Identity on that site in the Netlify dashboard (Site settings → Identity → Enable).
+The `[dev]` section in `netlify.toml` runs `hugo server -D` on port 1313 and
+proxies it through port 8888 with Functions support.
 
-**Testing Decap CMS locally:**
+---
 
-Run the CMS proxy in a separate terminal:
+#### Tier 3: Netlify Identity
+
+Identity is per-site — your personal site has its own Identity instance, completely
+separate from production. Your personal site must be deployed at least once before
+Identity can initialize locally.
+
+**Enable Identity on your personal site:**
+
+1. Netlify dashboard → your site → Site settings → Identity → Enable Identity
+2. Set registration to "Invite only" (recommended) or "Open" for easier testing
+3. Identity → Services → Git Gateway → Enable Git Gateway (authorizes GitHub OAuth)
+
+**Create a test user:**
+
+- Identity tab → Invite users → enter your personal email
+- Accept the invite, set a password — this is your local test login
+
+**Running:** Same as Tier 2 (`npm run dev`). The Identity widget at `/admin/` and
+any Identity-gated pages will authenticate against your personal site's Identity
+instance.
+
+---
+
+#### Tier 4: Decap CMS and Git Gateway
+
+> **Branch safety:** `static/admin/config.yml` has `branch: main` hardcoded.
+> With Git Gateway enabled, CMS saves commit directly to `main`. If you have write
+> access to the repo, test CMS saves can land in production content.
+
+**Recommended: use a personal dev branch for CMS testing**
+
 ```bash
+git checkout -b dev/your-name
+git push origin dev/your-name
+```
+
+Then locally edit `static/admin/config.yml` to point at your branch — **do not
+commit this change**:
+```yaml
+backend:
+  name: git-gateway
+  branch: dev/your-name   # local only, do not commit
+```
+
+**Option A — Local filesystem (no GitHub writes, no Identity needed):**
+
+```bash
+# Terminal 1
+npm run dev
+
+# Terminal 2
 npm run cms-proxy   # runs on port 8081
 ```
 
-In your local copy of `static/admin/config.yml`, add `local_backend: true` (do not commit):
+Temporarily add `local_backend: true` to your local `static/admin/config.yml`
+— **do not commit**:
 ```yaml
 local_backend: true
 backend:
   name: git-gateway
-  ...
+  branch: main
 ```
 
-Then visit `http://localhost:8888/admin/` — the CMS reads/writes directly to your local filesystem without requiring Identity.
+Visit `http://localhost:8888/admin/` — the CMS reads/writes your local filesystem
+with no Identity login required.
+
+**Option B — Full Git Gateway (writes to GitHub, requires Tier 3 + write access):**
+
+Ensure Identity is enabled and Git Gateway is authorized on your personal site,
+and that you've set up a personal dev branch above.
+
+Visit `http://localhost:8888/admin/`, log in with your Identity test user, and the
+CMS commits via your personal site's Git Gateway to your dev branch.
+
+---
+
+#### Terminal Summary
+
+| Scenario | Terminal 1 | Terminal 2 |
+|---|---|---|
+| Basic site | `hugo server -D` | — |
+| Functions + Identity | `npm run dev` | — |
+| CMS (local filesystem) | `npm run dev` | `npm run cms-proxy` |
+| CMS (Git Gateway) | `npm run dev` | — |
+
+---
+
+#### Troubleshooting
+
+**"Identity not enabled" at `/admin/`** — Your personal site hasn't been deployed
+yet, or Identity isn't enabled. Deploy once via the dashboard, then enable Identity
+under Site settings → Identity.
+
+**`netlify link` can't find my site** — Run `npx netlify sites:list` to see your
+sites, then `npx netlify link --id SITE_ID`.
+
+**CMS login works but saving fails with a 404** — Git Gateway isn't enabled. Go to
+Site settings → Identity → Services → Git Gateway → Enable.
+
+**CMS saves go to `main` instead of my dev branch** — You forgot to update `branch:`
+in your local `static/admin/config.yml`. Make the change locally, do not commit.
 
 ### Creating Content
 
