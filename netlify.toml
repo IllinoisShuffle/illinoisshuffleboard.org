@@ -52,15 +52,15 @@
 
 [[redirects]]
   from = "/lottery"
-  to = "https://forms.gle/JCyNL4Ap64dCtTvX9"
+  to = "https://docs.google.com/spreadsheets/d/1BrDfanKkDJq7QJ5-coVnZlamB0kOkHORMatbrXVrp0U/edit?usp=sharing"
   status = 302
-  # now points to 2026 lottery signup form
+  # now points to 2026 lottery draw form
 
 [[redirects]]
   from = "/lottery-faq"
-  to = "https://drive.google.com/file/d/17U6DvWxn6JiykiQfhXXgop9HHJBi-7I-/view?usp=sharing"
+  to = "https://drive.google.com/file/d/1AzawVbXgiotbSjXLgbLjsHh5WPAXkwO8/view?usp=sharing"
   status = 302
-  # now points to 2025 pdf
+  # now points to 2026 pdf
 
 [[redirects]]
   from = "/standings"
