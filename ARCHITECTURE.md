@@ -6,7 +6,7 @@ The Illinois Shuffleboard Association website is a static site built with Hugo, 
 
 ## Technology Stack
 
-- **Static Site Generator:** Hugo v0.143.1 (extended version required for SCSS/PostCSS support)
+- **Static Site Generator:** Hugo v0.152.2 (extended version required for PostCSS support)
 - **Styling:** Tailwind CSS v3.0.15 with PostCSS
 - **Deployment:** Netlify (continuous deployment from GitHub)
 - **Payment Processing:** Stripe (for memberships and donations)
@@ -43,6 +43,8 @@ The Illinois Shuffleboard Association website is a static site built with Hugo, 
 ├── static/                 # Static assets (served as-is)
 │   ├── icon/               # Site icons/favicons
 │   └── img/                # Images
+├── ARCHITECTURE.md         # This document
+├── CLAUDE.md               # AI assistant guidance for this codebase
 ├── config.toml             # Hugo site configuration
 ├── netlify.toml            # Netlify deployment & redirect configuration
 ├── package.json            # Node.js dependencies (Tailwind, PostCSS)
@@ -91,7 +93,7 @@ draft: false
 The `_index.md` provides the board section landing page.
 
 #### Points (`content/points/`)
-Tournament points standings by season.
+Tournament points standings by season and all-time.
 
 **Front Matter:**
 ```yaml
@@ -105,6 +107,8 @@ sub_title: "2025 Season"
 ```
 
 The Google Sheets CSV is fetched and rendered as a table by the points layout template.
+
+Season files (`2022.md`, `2023.md`, `2024.md`, `2025.md`) and an all-time standings page (`alltime.md`) are included.
 
 ### Front Matter Fields
 
@@ -220,7 +224,7 @@ Configuration is in `netlify.toml`:
   publish = "public/"        # Output directory
 
 [build.environment]
-  HUGO_VERSION = "0.143.1"   # Hugo version to use
+  HUGO_VERSION = "0.152.2"   # Hugo version to use
 ```
 
 **Redirects:** 158+ URL redirects for short links (e.g., `/rules`, `/national`, `/duck`)
