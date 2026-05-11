@@ -1,11 +1,17 @@
-{{ with os.Getenv "HUGO_LOCAL_BACKEND" -}}
+{{ if os.Getenv "HUGO_LOCAL_BACKEND" -}}
 local_backend: true
-{{ end -}}
+backend:
+  name: git-gateway
+  branch: do-not-commit
+  accept_roles:
+    - admin
+{{ else -}}
 backend:
   name: git-gateway
   branch: main
   accept_roles:
     - admin
+{{ end -}}
 
 media_folder: "static/img/posts"
 public_folder: "/img/posts"
