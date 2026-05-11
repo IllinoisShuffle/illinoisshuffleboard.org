@@ -21,5 +21,8 @@
 		}
 	},
 	"forwardPorts": [1313, 8888, 8081],
+  "remoteEnv": {
+    "HUGO_LOCAL_BACKEND": "true"
+  },
   "postCreateCommand": "npm install"
 }
