@@ -6,6 +6,9 @@
   <title>Content Manager | ILSA</title>
 </head>
 <body>
+  {{ with os.Getenv "HUGO_NETLIFY_IDENTITY_URL" }}
+  <script>try { localStorage.setItem('netlifySiteURL', '{{ . }}'); } catch(e) {}</script>
+  {{ end }}
   <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
   <script src="https://unpkg.com/decap-cms@^3.0.0/dist/decap-cms.js"></script>
 </body>

@@ -64,6 +64,13 @@ content, and CSS work.
 3. Create a personal Netlify site connected to this repo:
    - Netlify dashboard → "Add new site" → "Import an existing project"
    - Connect GitHub → select `IllinoisShuffle/illinoisshuffleboard.org`
+     > **No admin access to the org?** Fork the repo to your personal GitHub account
+     > first, then connect Netlify to your fork instead. Add the fork as a remote so
+     > you can push branches to it:
+     > ```bash
+     > git remote add fork git@github.com:YOUR_USERNAME/illinoisshuffleboard.org.git
+     > git push fork HEAD
+     > ```
    - Build command: `hugo`, publish directory: `public/`
    - Deploy to any branch (your personal dev branch is safest — see Tier 4)
 
