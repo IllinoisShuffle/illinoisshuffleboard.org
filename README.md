@@ -202,17 +202,12 @@ in your local `static/admin/config.yml`. Make the change locally, do not commit.
 
 ### Creating Content
 
-To create a new post:
+To create a new post, use the Decap CMS interface at `/admin/` — log in with your Netlify Identity credentials and use the "New News Post" button.
+
+For command-line creation:
 ```bash
 hugo new posts/YYYY-MM-DD-post-title.md
 ```
-
-Alternatively, use the Ruby script:
-```bash
-.github/create_blank_post.rb
-```
-
-Or use the GitHub Actions workflow "New Post" via the repository's Actions tab to create posts with templated frontmatter.
 
 ## Architecture
 
@@ -281,9 +276,9 @@ Update redirects by editing the `[[redirects]]` sections in `netlify.toml`.
 - `config.toml`: Hugo site configuration (baseURL, title, language, build stats)
 - `netlify.toml`: Build settings, Hugo version, and all URL redirects
 - `.node-version`: Specifies Node.js version (v22.13.1)
-- `.github/workflows/new_post.yml`: GitHub Actions workflow to create posts
-- `.github/create_blank_post.rb`: Ruby script for post generation
 - `assets/css/main.css`: Tailwind CSS entry point
+- `layouts/admin/admin.html`: Decap CMS entry point (Hugo template)
+- `layouts/admin/list.yml`: Decap CMS config (Hugo template, generates `/admin/config.yml`)
 
 ## Deployment
 
