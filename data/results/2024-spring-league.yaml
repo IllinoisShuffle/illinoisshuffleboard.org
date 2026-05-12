@@ -1,0 +1,42 @@
+event: "Spring League"
+category: league
+year: 2024
+results:
+  - player: "Jason Hiquet"
+    points: 10
+  - player: "Noelle Riese"
+    points: 10
+  - player: "John Windler"
+    points: 8
+  - player: "Sam Boebel"
+    points: 8
+  - player: "Matthew Miller"
+    points: 6
+  - player: "Emma Brown-Wasielewski"
+    points: 6
+  - player: "Rachel Reichman"
+    points: 5
+  - player: "John Allen"
+    points: 5
+  - player: "Radhika Tandon"
+    points: 3
+  - player: "Tyler Berry"
+    points: 2
+  - player: "Sean Reddington"
+    points: 2
+  - player: "Erik Windler"
+    points: 2
+  - player: "Juliana Kaye"
+    points: 2
+  - player: "Spencer McNeil"
+    points: 2
+  - player: "Michelle DiMaggio"
+    points: 2
+  - player: "Jason Klis"
+    points: 2
+  - player: "Charlie Ferreira"
+    points: 2
+  - player: "Jordan Halpern"
+    points: 2
+  - player: "Karla Baumler"
+    points: 1

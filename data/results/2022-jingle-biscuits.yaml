@@ -1,0 +1,36 @@
+event: "Jingle Biscuits"
+category: ilsa
+year: 2022
+results:
+  - player: "Samuel Dewey"
+    points: 10
+  - player: "Steven Perry"
+    points: 10
+  - player: "Dustin Kozal"
+    points: 8
+  - player: "Chris Abernathy"
+    points: 8
+  - player: "Michael A Dritto"
+    points: 6
+  - player: "Connor Morehouse"
+    points: 6
+  - player: "Teddy Wachholz"
+    points: 5
+  - player: "Sammy Wachholz"
+    points: 5
+  - player: "Jordon Novak"
+    points: 2
+  - player: "Sean Reddington"
+    points: 2
+  - player: "Dan Love"
+    points: 2
+  - player: "Anna Balchunas"
+    points: 2
+  - player: "Nicholas Goldman"
+    points: 2
+  - player: "Andrew Gonzales"
+    points: 2
+  - player: "James Devine"
+    points: 2
+  - player: "Voltaire Alanguilan"
+    points: 2

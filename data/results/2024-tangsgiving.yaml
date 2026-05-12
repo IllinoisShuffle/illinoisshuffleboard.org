@@ -1,0 +1,20 @@
+event: "Tangsgiving"
+category: ilsa
+year: 2024
+results:
+  - player: "Adam Jamrozy"
+    points: 10
+  - player: "Jeff Ziev"
+    points: 8
+  - player: "Tyler Berry"
+    points: 6
+  - player: "Eric R Koch"
+    points: 5
+  - player: "Erik Windler"
+    points: 4
+  - player: "Tim Nicholson"
+    points: 3
+  - player: "Matt Nakano"
+    points: 2
+  - player: "Brian DeMaio"
+    points: 1

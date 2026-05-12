@@ -1,0 +1,36 @@
+event: "Winter Olympics"
+category: ilsa
+year: 2024
+results:
+  - player: "Andrew Collier"
+    points: 10
+  - player: "Dustin Kozal"
+    points: 10
+  - player: "Kevin Wickman"
+    points: 8
+  - player: "Neal Hamer"
+    points: 8
+  - player: "Tyler Berry"
+    points: 5
+  - player: "Mark Malatt"
+    points: 5
+  - player: "James Parizek"
+    points: 5
+  - player: "Kristen Haut"
+    points: 5
+  - player: "Robert O'mahoney"
+    points: 2
+  - player: "Kim Marek"
+    points: 2
+  - player: "Joshua D Garrett"
+    points: 2
+  - player: "Jordon Novak"
+    points: 2
+  - player: "Rachel Reichman"
+    points: 2
+  - player: "Diana Diaz"
+    points: 2
+  - player: "Kate Fitzgerald"
+    points: 2
+  - player: "Kristina Walter"
+    points: 2
