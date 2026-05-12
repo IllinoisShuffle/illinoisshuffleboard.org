@@ -1,11 +1,24 @@
+# Hugo Site Configuration
+# Documentation: https://gohugo.io/getting-started/configuration/
+
+# Base URL of the site - used for generating absolute URLs in RSS feeds, sitemaps, etc.
+# Should match the production domain (with trailing slash)
 baseURL = 'https://illinoisshuffleboard.org/'
+
+# Language code for the site - affects date formatting and some built-in strings
+# Format: ISO 639-1 language code
 languageCode = 'en-us'
+
+# Site title - appears in <title> tags, RSS feeds, and templates via {{ .Site.Title }}
 title = 'Illinois Shuffleboard Association'
 
+# Build configuration for Hugo's CSS processing pipeline
 [build]
+  # Generates hugo_stats.json with used HTML elements/classes for Tailwind CSS purging
   [build.buildStats]
     enable = true
 
+  # Cache-busting: when these source files change, Hugo regenerates CSS assets
   [[build.cachebusters]]
     source = "assets/css/main\\.css"
     target = "css"
@@ -19,4 +32,5 @@ title = 'Illinois Shuffleboard Association'
 [markup]
   [markup.goldmark]
     [markup.goldmark.renderer]
+      # Allow raw HTML in Markdown content files
       unsafe = true
