@@ -1,0 +1,20 @@
+event: "Mad Hatter"
+category: ilsa
+year: 2024
+results:
+  - player: "Dave Berman"
+    points: 10
+  - player: "James Parizek"
+    points: 8
+  - player: "James Gallagher"
+    points: 5
+  - player: "David Smith"
+    points: 5
+  - player: "Sean Reddington"
+    points: 2
+  - player: "Tyler Janese"
+    points: 2
+  - player: "Spencer McNeil"
+    points: 2
+  - player: "Hailey Staunton"
+    points: 2

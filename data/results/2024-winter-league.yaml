@@ -1,0 +1,26 @@
+event: "Winter League"
+category: league
+year: 2024
+results:
+  - player: "Mathew Savill"
+    points: 10
+  - player: "Kevin Wickman"
+    points: 8
+  - player: "Maxwell Julius"
+    points: 6
+  - player: "Jordon Novak"
+    points: 5
+  - player: "William Kirchhoff"
+    points: 3
+  - player: "Tyler Berry"
+    points: 2
+  - player: "Mark Malatt"
+    points: 2
+  - player: "Gabe Paul"
+    points: 2
+  - player: "August Etsch"
+    points: 2
+  - player: "Joseph Brett Spangler"
+    points: 2
+  - player: "Mike Schmitt"
+    points: 1

@@ -1,0 +1,30 @@
+event: "St Peterick's Tournament"
+category: ilsa
+year: 2022
+results:
+  - player: "Tyler Berry"
+    points: 7
+  - player: "Jordan Halpern"
+    points: 7
+  - player: "Maxwell Julius"
+    points: 5
+  - player: "Sara Helwink"
+    points: 5
+  - player: "Dustin Kozal"
+    points: 3
+  - player: "James Parizek"
+    points: 3
+  - player: "Teddy Wachholz"
+    points: 2
+  - player: "Josh Brown"
+    points: 2
+  - player: "Kevin Reedy"
+    points: 1
+  - player: "Sammy Wachholz"
+    points: 1
+  - player: "Diana Diaz"
+    points: 1
+  - player: "Bobby Peterson"
+    points: 1
+  - player: "Tyler Hienkel"
+    points: 1

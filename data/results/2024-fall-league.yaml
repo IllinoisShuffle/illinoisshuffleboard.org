@@ -1,0 +1,36 @@
+event: "Fall League"
+category: league
+year: 2024
+results:
+  - player: "Mark Malatt"
+    points: 10
+  - player: "Tyler Berry"
+    points: 8
+  - player: "Jen Durham"
+    points: 7
+  - player: "James Kessler"
+    points: 6
+  - player: "Michael A Dritto"
+    points: 5
+  - player: "Laura Silverman"
+    points: 5
+  - player: "Katie Guarascio"
+    points: 3
+  - player: "Fabiola Camacho"
+    points: 2
+  - player: "Diana Diaz"
+    points: 2
+  - player: "Joe Brennan"
+    points: 2
+  - player: "Maggie Jones"
+    points: 2
+  - player: "Jason Kontny"
+    points: 2
+  - player: "Dana Rotz"
+    points: 1
+  - player: "Eileen Rohan"
+    points: 1
+  - player: "Kai Brown"
+    points: 1
+  - player: "Ryan O'Maley"
+    points: 1

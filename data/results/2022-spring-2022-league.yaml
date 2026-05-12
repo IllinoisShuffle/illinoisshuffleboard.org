@@ -1,0 +1,26 @@
+event: "Spring 2022 League"
+category: league
+year: 2022
+results:
+  - player: "Robert O'mahoney"
+    points: 10
+  - player: "Samuel Dewey"
+    points: 8
+  - player: "Aaron Politsky"
+    points: 6
+  - player: "Mathew Savill"
+    points: 5
+  - player: "Doug Moring"
+    points: 3
+  - player: "James Kessler"
+    points: 2
+  - player: "Kevin Reedy"
+    points: 2
+  - player: "Justin Latta"
+    points: 2
+  - player: "Jim Seesel"
+    points: 2
+  - player: "Kristina Walter"
+    points: 2
+  - player: "David Berman"
+    points: 1

@@ -1,0 +1,26 @@
+event: "Summer 2022 League"
+category: league
+year: 2022
+results:
+  - player: "Samuel Dewey"
+    points: 10
+  - player: "Derek Falk"
+    points: 8
+  - player: "Trevor Hess"
+    points: 6
+  - player: "Tyler Berry"
+    points: 5
+  - player: "Jason Hiquet"
+    points: 3
+  - player: "Steven Perry"
+    points: 2
+  - player: "Joe Brennan"
+    points: 2
+  - player: "Justin Latta"
+    points: 2
+  - player: "Jim Seesel"
+    points: 2
+  - player: "Jordon Novak"
+    points: 2
+  - player: "Maxwell Julius"
+    points: 1

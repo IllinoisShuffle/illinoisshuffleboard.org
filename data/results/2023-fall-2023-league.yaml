@@ -1,0 +1,20 @@
+event: "Fall 2023 League"
+category: league
+year: 2023
+results:
+  - player: "Mark Malatt"
+    points: 10
+  - player: "Tyler Berry"
+    points: 8
+  - player: "Robert O'mahoney"
+    points: 6
+  - player: "Joshua D Garrett"
+    points: 5
+  - player: "Maxwell Julius"
+    points: 2
+  - player: "Dustin Kozal"
+    points: 2
+  - player: "Brian O'Connell"
+    points: 2
+  - player: "Rebecca Mendoza"
+    points: 2

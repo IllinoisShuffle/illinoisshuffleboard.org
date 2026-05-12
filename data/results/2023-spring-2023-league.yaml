@@ -1,0 +1,26 @@
+event: "Spring 2023 League"
+category: league
+year: 2023
+results:
+  - player: "Michael A Dritto"
+    points: 10
+  - player: "Connor Morehouse"
+    points: 8
+  - player: "Jason Hiquet"
+    points: 6
+  - player: "Kevin Reedy"
+    points: 5
+  - player: "John Allen"
+    points: 3
+  - player: "Maxwell Julius"
+    points: 2
+  - player: "Christy Gregory"
+    points: 2
+  - player: "Andy Norton"
+    points: 2
+  - player: "Chris Abernathy"
+    points: 2
+  - player: "James Parizek"
+    points: 2
+  - player: "Juliana Kaye"
+    points: 1

@@ -1,10 +1,8 @@
 {{ define "main" }}
 
-{{/* ─── ILSA Points page (redesigned) ─────────────────────────────────────
-     Same data source as before (CSV at .Params.google_doc), but rendered
-     as a vertical leaderboard with an expandable per-player breakdown and
-     a sticky "Filter by event" sidebar. Interactivity is vanilla JS;
-     the page works without it (filter UI gracefully no-ops).
+{{/* ─── ILSA Points page ────────────────────────────────────────────────────
+     Data is loaded from data/results/*.yaml files (one file per tournament).
+     Front matter `year` filters to a single season; omit for all-time.
 ─────────────────────────────────────────────────────────────────────────*/}}
 
 <h3 class="text-2xl font-extrabold text-gray-900 tracking-tight sm:text-3xl mt-6">State Points</h3>
@@ -31,51 +29,54 @@
 
 <h4 class="text-xl font-semibold text-gray-900 mt-8">{{ .Params.sub_title }}</h4>
 
-{{/* ─── Parse CSV ─── */}}
-{{ $url := .Params.google_doc }}
-{{ $csv := resources.GetRemote $url | transform.Unmarshal }}
+{{/* ─── Load & filter tournament data ─── */}}
+{{ $filterYear := .Params.year }}
 
-{{/* Header row → event metadata. Columns 0 and 1 are Name / Total. */}}
-{{ $header := index $csv 0 }}
+{{ $allTournaments := slice }}
+{{ range $key, $t := site.Data.results }}
+  {{ $allTournaments = $allTournaments | append (merge $t (dict "slug" $key)) }}
+{{ end }}
+
+{{ $tournaments := $allTournaments }}
+{{ if $filterYear }}
+  {{ $tournaments = where $allTournaments "year" $filterYear }}
+{{ end }}
+
+{{/* Sort events alphabetically by slug for stable sidebar ordering */}}
+{{ $tournaments = sort $tournaments "slug" "asc" }}
+
+{{/* ─── Build events list ─── */}}
 {{ $events := slice }}
-{{ range $i, $col := $header }}
-  {{ if gt $i 1 }}
-    {{ $kind := "ilsa" }}
-    {{ if or (in $col "National") (in $col "national") }}{{ $kind = "national" }}{{ end }}
-    {{ if in $col "League" }}{{ $kind = "league" }}{{ end }}
-    {{ if in $col "Championship" }}{{ $kind = "championship" }}{{ end }}
-    {{ $events = $events | append (dict
-        "idx"   $i
-        "name"  $col
-        "kind"  $kind
-        "slug"  (printf "e%d" $i)) }}
-  {{ end }}
+{{ range $t := $tournaments }}
+  {{ $events = $events | append (dict
+      "name" $t.event
+      "kind" $t.category
+      "slug" $t.slug) }}
 {{ end }}
 
-{{/* Build player rows (skip header + 0-point players). */}}
-{{ $players := slice }}
-{{ range $row_i, $row := $csv }}
-  {{ if and (ne $row_i 0) (ne (index $row 1) "0") (ne (index $row 1) "") (findRE "^[0-9]+$" (index $row 1)) }}
-    {{ $name  := index $row 0 }}
-    {{ $total := index $row 1 | int }}
-    {{ $bd := dict }}
-    {{ $count := 0 }}
-    {{ range $e := $events }}
-      {{ $cell := index $row $e.idx }}
-      {{ if and (ne $cell "") (ne $cell "0") (findRE "^[0-9]+$" $cell) }}
-        {{ $bd = merge $bd (dict $e.slug ($cell | int)) }}
-        {{ $count = add $count 1 }}
-      {{ end }}
+{{/* ─── Aggregate player data across all matching tournaments ─── */}}
+{{ $playerMap := dict }}
+{{ range $t := $tournaments }}
+  {{ range $r := $t.results }}
+    {{ $existing := index $playerMap $r.player }}
+    {{ if not $existing }}
+      {{ $existing = dict "name" $r.player "total" 0 "breakdown" (dict) "eventCount" 0 }}
     {{ end }}
-    {{ $players = $players | append (dict
-        "name"        $name
-        "total"       $total
-        "breakdown"   $bd
-        "eventCount"  $count) }}
+    {{ $playerMap = merge $playerMap (dict $r.player (dict
+        "name"       $r.player
+        "total"      (add $existing.total $r.points)
+        "breakdown"  (merge $existing.breakdown (dict $t.slug $r.points))
+        "eventCount" (add $existing.eventCount 1))) }}
   {{ end }}
 {{ end }}
 
-{{/* Event totals + participation (computed) */}}
+{{ $players := slice }}
+{{ range $name, $p := $playerMap }}
+  {{ $players = $players | append $p }}
+{{ end }}
+{{ $players = sort $players "total" "desc" }}
+
+{{/* ─── Event totals + participation ─── */}}
 {{ $eventStats := dict }}
 {{ range $e := $events }}
   {{ $sum := 0 }}{{ $part := 0 }}
@@ -88,9 +89,6 @@
   {{ $eventStats = merge $eventStats (dict $e.slug (dict "total" $sum "participants" $part)) }}
 {{ end }}
 
-{{/* Stable-sort players by total desc (Hugo's `sort` is stable on equal keys) */}}
-{{ $players = sort $players "total" "desc" }}
-
 {{ $isEmpty := eq (len $players) 0 }}
 
 <div id="ilsa-points" class="mt-5"
@@ -99,7 +97,7 @@
 
   {{ if $isEmpty }}
     <div class="bg-white rounded-xl ring-1 ring-gray-200 shadow-sm p-10 text-center">
-      <div class="mx-auto h-12 w-12 rounded-full bg-indigo-100 grid place-items-center text-indigo-600 font-bold">{{ substr .Params.sub_title 2 2 }}</div>
+      <div class="mx-auto h-12 w-12 rounded-full bg-indigo-100 grid place-items-center text-indigo-600 font-bold">{{ substr .Params.sub_title 0 2 }}</div>
       <p class="mt-3 text-sm font-medium text-gray-900">{{ .Params.sub_title }} hasn't started yet</p>
       <p class="mt-1 text-xs text-gray-500">Check back once the first events are scored.</p>
     </div>
@@ -162,8 +160,8 @@
                         {{ $pct := mul (div (mul . 1.0) $p.total) 100 }}
                         <div class="lb-strip-seg
                           {{ if eq $e.kind "national" }}bg-indigo-500
-                          {{ else if eq $e.kind "championship" }}bg-amber-500
                           {{ else if eq $e.kind "league" }}bg-emerald-500
+                          {{ else if eq $e.kind "other" }}bg-rose-500
                           {{ else }}bg-sky-500{{ end }}"
                           data-event="{{ $e.slug }}"
                           style="width:{{ $pct }}%"
@@ -200,8 +198,8 @@
                       <span class="relative w-24 h-1.5 rounded-full bg-gray-200 overflow-hidden flex-none">
                         <span class="absolute inset-y-0 left-0
                           {{ if eq $e.kind "national" }}bg-indigo-500
-                          {{ else if eq $e.kind "championship" }}bg-amber-500
                           {{ else if eq $e.kind "league" }}bg-emerald-500
+                          {{ else if eq $e.kind "other" }}bg-rose-500
                           {{ else }}bg-sky-500{{ end }}" style="width:{{ $pct }}%"></span>
                       </span>
                       <span class="tabular-nums text-sm font-semibold text-gray-900 w-7 text-right">{{ . }}</span>
@@ -222,10 +220,10 @@
 
       <div class="px-4 sm:px-5 py-3 bg-gray-50 border-t border-gray-200 flex flex-wrap items-center gap-x-4 gap-y-1 text-xs text-gray-600">
         <span class="font-semibold uppercase tracking-wider text-[10px] text-gray-500">Event types</span>
-        <span class="inline-flex items-center gap-1.5"><span class="h-2 w-2 rounded-full bg-indigo-500"></span>Nationals</span>
-        <span class="inline-flex items-center gap-1.5"><span class="h-2 w-2 rounded-full bg-amber-500"></span>Championship</span>
-        <span class="inline-flex items-center gap-1.5"><span class="h-2 w-2 rounded-full bg-emerald-500"></span>Leagues</span>
-        <span class="inline-flex items-center gap-1.5"><span class="h-2 w-2 rounded-full bg-sky-500"></span>ILSA</span>
+        <span class="inline-flex items-center gap-1.5"><span class="h-2 w-2 rounded-full bg-indigo-500"></span>National Tournament</span>
+        <span class="inline-flex items-center gap-1.5"><span class="h-2 w-2 rounded-full bg-emerald-500"></span>ILSA League</span>
+        <span class="inline-flex items-center gap-1.5"><span class="h-2 w-2 rounded-full bg-sky-500"></span>ILSA Event</span>
+        <span class="inline-flex items-center gap-1.5"><span class="h-2 w-2 rounded-full bg-rose-500"></span>Other Event</span>
         <span class="ml-auto text-gray-500 hidden sm:inline">Click any player to see their breakdown</span>
       </div>
     </section>
@@ -236,15 +234,15 @@
         <h3 class="text-xs font-semibold uppercase tracking-wider text-gray-500">Filter by event</h3>
         <button type="button" data-clear-filter id="lb-clear" class="hidden text-xs font-medium text-indigo-600 hover:text-indigo-800 no-underline">Clear ✕</button>
       </div>
-      {{ range $kind, $label := (dict "national" "National Tournaments" "championship" "Championships" "league" "Leagues" "ilsa" "ILSA Events") }}
+      {{ range $kind, $label := (dict "national" "National Tournament" "league" "ILSA League" "ilsa" "ILSA Event" "other" "Other Event") }}
         {{ $list := where $events "kind" $kind }}
         {{ if gt (len $list) 0 }}
           <div class="mb-5">
             <div class="flex items-center gap-2 mb-1.5">
               <span class="h-1.5 w-1.5 rounded-full
                 {{ if eq $kind "national" }}bg-indigo-500
-                {{ else if eq $kind "championship" }}bg-amber-500
                 {{ else if eq $kind "league" }}bg-emerald-500
+                {{ else if eq $kind "other" }}bg-rose-500
                 {{ else }}bg-sky-500{{ end }}"></span>
               <span class="text-[11px] font-semibold uppercase tracking-wider text-gray-500">{{ $label }}</span>
             </div>
@@ -255,7 +253,6 @@
                         class="lb-event w-full flex items-center gap-2 px-2 py-1.5 rounded-md text-sm text-left transition hover:bg-gray-100 text-gray-800">
                   <span class="flex-1 truncate">{{ $e.name }}</span>
                   <span class="lb-event-part tabular-nums text-xs px-1.5 rounded bg-gray-100 text-gray-600">{{ $st.participants }}p</span>
-                  <span class="lb-event-total tabular-nums text-xs font-semibold w-9 text-right text-gray-900">{{ $st.total }}</span>
                 </button>
               {{ end }}
             </div>
@@ -278,7 +275,7 @@
   var eventBySlug = {};
   events.forEach(function (e) { eventBySlug[e.slug] = e; });
 
-  var KIND_BG = { national: "bg-indigo-500", championship: "bg-amber-500", league: "bg-emerald-500", ilsa: "bg-sky-500" };
+  var KIND_BG = { national: "bg-indigo-500", league: "bg-emerald-500", ilsa: "bg-sky-500", other: "bg-rose-500" };
 
   var rowsEl   = document.getElementById("lb-rows");
   var rows     = rowsEl ? Array.prototype.slice.call(rowsEl.querySelectorAll(".lb-row")) : [];
@@ -301,7 +298,6 @@
     var chev = row.querySelector(".lb-chevron");
     btn.addEventListener("click", function () {
       var open = !det.classList.contains("hidden");
-      // close others (single-open)
       rows.forEach(function (r) {
         r.querySelector(".lb-detail").classList.add("hidden");
         var c = r.querySelector(".lb-chevron"); if (c) c.style.transform = "";
@@ -347,7 +343,6 @@
       return true;
     });
 
-    // sort
     filtered.sort(function (a, b) {
       if (state.filter) {
         var ab = (JSON.parse(a.dataset.bd)[state.filter] || 0);
@@ -360,7 +355,6 @@
       return (+b.dataset.total) - (+a.dataset.total);
     });
 
-    // re-attach + re-rank
     rows.forEach(function (r) { r.style.display = "none"; });
     var lastTotal = null, lastRank = 0;
     filtered.forEach(function (r, i) {
@@ -376,7 +370,6 @@
       rankEl.className = "lb-rank tabular-nums font-semibold text-sm " +
         (rank === 1 ? "text-amber-600" : rank <= 3 ? "text-indigo-700" : "text-gray-500");
 
-      // primary / secondary cells reflect filter mode
       var bd = JSON.parse(r.dataset.bd || "{}");
       var primaryEl = r.querySelector(".lb-primary");
       var primaryLabel = r.querySelector(".lb-primary-label");
@@ -395,7 +388,6 @@
         secondary.className = "lb-secondary text-xs text-gray-500 hidden sm:block text-right tabular-nums";
       }
 
-      // dim/highlight strip segments
       r.querySelectorAll(".lb-strip-seg").forEach(function (seg) {
         if (state.filter) {
           seg.style.opacity = (seg.dataset.event === state.filter) ? "1" : "0.22";
@@ -405,18 +397,14 @@
       });
     });
 
-    // sidebar active state
     document.querySelectorAll(".lb-event").forEach(function (btn) {
       var on = btn.getAttribute("data-event-pick") === state.filter;
       var part = btn.querySelector(".lb-event-part");
-      var tot  = btn.querySelector(".lb-event-total");
       btn.className = "lb-event w-full flex items-center gap-2 px-2 py-1.5 rounded-md text-sm text-left transition " +
         (on ? "bg-indigo-600 text-white" : "hover:bg-gray-100 text-gray-800");
       if (part) part.className = "lb-event-part tabular-nums text-xs px-1.5 rounded " + (on ? "bg-indigo-500/60 text-white" : "bg-gray-100 text-gray-600");
-      if (tot)  tot.className  = "lb-event-total tabular-nums text-xs font-semibold w-9 text-right " + (on ? "text-white" : "text-gray-900");
     });
 
-    // banner + header
     if (state.filter) {
       var e = eventBySlug[state.filter];
       banner.classList.remove("hidden");
@@ -427,14 +415,11 @@
       if (clearBtn) clearBtn.classList.remove("hidden");
     } else {
       banner.classList.add("hidden");
-      title.textContent = (sub.dataset && sub.dataset.defaultTitle) || title.dataset.defaultTitle || title.textContent;
-      // restore defaults from cached
       title.textContent = title.dataset.defaultTitle;
       sub.textContent = sub.dataset.defaultSub;
       if (clearBtn) clearBtn.classList.add("hidden");
     }
 
-    // empty
     if (filtered.length === 0) {
       empty.classList.remove("hidden");
       empty.innerHTML = state.q
@@ -447,7 +432,6 @@
     }
   }
 
-  // cache defaults so we can restore on clear
   if (title) title.dataset.defaultTitle = title.textContent;
   if (sub)   sub.dataset.defaultSub   = sub.textContent;
 })();

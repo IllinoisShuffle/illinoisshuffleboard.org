@@ -1,0 +1,26 @@
+event: "Winter 2023 League"
+category: league
+year: 2023
+results:
+  - player: "Samuel Dewey"
+    points: 10
+  - player: "Tyler Berry"
+    points: 8
+  - player: "Michael A Dritto"
+    points: 6
+  - player: "Robert O'mahoney"
+    points: 5
+  - player: "Kiernan Ambrose"
+    points: 3
+  - player: "Maxwell Julius"
+    points: 2
+  - player: "Justin Latta"
+    points: 2
+  - player: "Josh Petras"
+    points: 2
+  - player: "Mickey Novak"
+    points: 2
+  - player: "Sean Reddington"
+    points: 2
+  - player: "Kate Fitzgerald"
+    points: 1
