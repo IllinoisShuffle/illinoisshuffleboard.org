@@ -16,6 +16,11 @@
     "url": "https://github.com/IllinoisShuffle/illinoisshuffleboard.org/issues"
   },
   "homepage": "https://github.com/IllinoisShuffle/illinoisshuffleboard.org#readme",
+  "dependencies": {
+    "jsonwebtoken": "^9.0.2",
+    "resend": "^4.0.0",
+    "stripe": "^17.4.0"
+  },
   "devDependencies": {
     "@tailwindcss/cli": "^4.0.0",
     "@tailwindcss/typography": "^0.5.15",
