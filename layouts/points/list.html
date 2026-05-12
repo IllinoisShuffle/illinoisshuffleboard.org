@@ -160,8 +160,8 @@
                         {{ $pct := mul (div (mul . 1.0) $p.total) 100 }}
                         <div class="lb-strip-seg
                           {{ if eq $e.kind "national" }}bg-indigo-500
-                          {{ else if eq $e.kind "championship" }}bg-amber-500
                           {{ else if eq $e.kind "league" }}bg-emerald-500
+                          {{ else if eq $e.kind "other" }}bg-rose-500
                           {{ else }}bg-sky-500{{ end }}"
                           data-event="{{ $e.slug }}"
                           style="width:{{ $pct }}%"
@@ -198,8 +198,8 @@
                       <span class="relative w-24 h-1.5 rounded-full bg-gray-200 overflow-hidden flex-none">
                         <span class="absolute inset-y-0 left-0
                           {{ if eq $e.kind "national" }}bg-indigo-500
-                          {{ else if eq $e.kind "championship" }}bg-amber-500
                           {{ else if eq $e.kind "league" }}bg-emerald-500
+                          {{ else if eq $e.kind "other" }}bg-rose-500
                           {{ else }}bg-sky-500{{ end }}" style="width:{{ $pct }}%"></span>
                       </span>
                       <span class="tabular-nums text-sm font-semibold text-gray-900 w-7 text-right">{{ . }}</span>
@@ -220,10 +220,10 @@
 
       <div class="px-4 sm:px-5 py-3 bg-gray-50 border-t border-gray-200 flex flex-wrap items-center gap-x-4 gap-y-1 text-xs text-gray-600">
         <span class="font-semibold uppercase tracking-wider text-[10px] text-gray-500">Event types</span>
-        <span class="inline-flex items-center gap-1.5"><span class="h-2 w-2 rounded-full bg-indigo-500"></span>Nationals</span>
-        <span class="inline-flex items-center gap-1.5"><span class="h-2 w-2 rounded-full bg-amber-500"></span>Championship</span>
-        <span class="inline-flex items-center gap-1.5"><span class="h-2 w-2 rounded-full bg-emerald-500"></span>Leagues</span>
-        <span class="inline-flex items-center gap-1.5"><span class="h-2 w-2 rounded-full bg-sky-500"></span>ILSA</span>
+        <span class="inline-flex items-center gap-1.5"><span class="h-2 w-2 rounded-full bg-indigo-500"></span>National Tournament</span>
+        <span class="inline-flex items-center gap-1.5"><span class="h-2 w-2 rounded-full bg-emerald-500"></span>ILSA League</span>
+        <span class="inline-flex items-center gap-1.5"><span class="h-2 w-2 rounded-full bg-sky-500"></span>ILSA Event</span>
+        <span class="inline-flex items-center gap-1.5"><span class="h-2 w-2 rounded-full bg-rose-500"></span>Other Event</span>
         <span class="ml-auto text-gray-500 hidden sm:inline">Click any player to see their breakdown</span>
       </div>
     </section>
@@ -234,15 +234,15 @@
         <h3 class="text-xs font-semibold uppercase tracking-wider text-gray-500">Filter by event</h3>
         <button type="button" data-clear-filter id="lb-clear" class="hidden text-xs font-medium text-indigo-600 hover:text-indigo-800 no-underline">Clear ✕</button>
       </div>
-      {{ range $kind, $label := (dict "national" "National Tournaments" "championship" "Championships" "league" "Leagues" "ilsa" "ILSA Events") }}
+      {{ range $kind, $label := (dict "national" "National Tournament" "league" "ILSA League" "ilsa" "ILSA Event" "other" "Other Event") }}
         {{ $list := where $events "kind" $kind }}
         {{ if gt (len $list) 0 }}
           <div class="mb-5">
             <div class="flex items-center gap-2 mb-1.5">
               <span class="h-1.5 w-1.5 rounded-full
                 {{ if eq $kind "national" }}bg-indigo-500
-                {{ else if eq $kind "championship" }}bg-amber-500
                 {{ else if eq $kind "league" }}bg-emerald-500
+                {{ else if eq $kind "other" }}bg-rose-500
                 {{ else }}bg-sky-500{{ end }}"></span>
               <span class="text-[11px] font-semibold uppercase tracking-wider text-gray-500">{{ $label }}</span>
             </div>
@@ -275,7 +275,7 @@
   var eventBySlug = {};
   events.forEach(function (e) { eventBySlug[e.slug] = e; });
 
-  var KIND_BG = { national: "bg-indigo-500", championship: "bg-amber-500", league: "bg-emerald-500", ilsa: "bg-sky-500" };
+  var KIND_BG = { national: "bg-indigo-500", league: "bg-emerald-500", ilsa: "bg-sky-500", other: "bg-rose-500" };
 
   var rowsEl   = document.getElementById("lb-rows");
   var rows     = rowsEl ? Array.prototype.slice.call(rowsEl.querySelectorAll(".lb-row")) : [];
