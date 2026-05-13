@@ -35,15 +35,26 @@
 {{ $url := .Params.google_doc }}
 {{ $csv := resources.GetRemote $url | transform.Unmarshal }}
 
+{{ $tournament_url := .Params.tournament_doc }}
+{{ $tournament_csv := resources.GetRemote $tournament_url | transform.Unmarshal }}
+
 {{/* Header row → event metadata. Columns 0 and 1 are Name / Total. */}}
 {{ $header := index $csv 0 }}
 {{ $events := slice }}
 {{ range $i, $col := $header }}
   {{ if gt $i 1 }}
-    {{ $kind := "ilsa" }}
-    {{ if or (in $col "National") (in $col "national") }}{{ $kind = "national" }}{{ end }}
-    {{ if in $col "League" }}{{ $kind = "league" }}{{ end }}
-    {{ if in $col "Championship" }}{{ $kind = "championship" }}{{ end }}
+    {{ $kind := "other" }}
+
+    {{/* Loop over the tournament list to get the correct type to group them later */}}
+    {{ range $t_row_i, $t_row := $tournament_csv }}
+      {{ $tournament_name := index $t_row 0 }}
+      {{ $tournament_kind := index $t_row 1 }} 
+      {{if eq $tournament_name $col }} 
+        {{ $kind = lower $tournament_kind }} 
+        {{ warnf "col %s |tournament_name %s |tournament_kind %s |kind %s" $col $tournament_name $tournament_kind $kind }}
+      {{ end }}
+    {{ end }}
+
     {{ $events = $events | append (dict
         "idx"   $i
         "name"  $col
@@ -162,8 +173,10 @@
                         {{ $pct := mul (div (mul . 1.0) $p.total) 100 }}
                         <div class="lb-strip-seg
                           {{ if eq $e.kind "national" }}bg-indigo-500
-                          {{ else if eq $e.kind "championship" }}bg-amber-500
-                          {{ else if eq $e.kind "league" }}bg-emerald-500
+                          {{ else if eq $e.kind "ilsa tournament" }}bg-amber-500
+                          {{ else if eq $e.kind "ilsa league" }}bg-sky-500
+                          {{ else if eq $e.kind "other" }}bg-emerald-500
+                          {{ else if eq $e.kind "year" }}bg-emerald-500
                           {{ else }}bg-sky-500{{ end }}"
                           data-event="{{ $e.slug }}"
                           style="width:{{ $pct }}%"
@@ -192,16 +205,21 @@
                     <button type="button" data-event-pick="{{ $e.slug }}"
                             class="group flex items-center gap-3 py-1.5 px-2 -mx-2 rounded-md text-left hover:bg-white">
                       <span class="h-2 w-2 rounded-full flex-none
+
                         {{ if eq $e.kind "national" }}bg-indigo-500
-                        {{ else if eq $e.kind "championship" }}bg-amber-500
-                        {{ else if eq $e.kind "league" }}bg-emerald-500
+                        {{ else if eq $e.kind "ilsa tournament" }}bg-amber-500
+                        {{ else if eq $e.kind "ilsa league" }}bg-sky-500
+                        {{ else if eq $e.kind "other" }}bg-emerald-500
+                        {{ else if eq $e.kind "year" }}bg-emerald-500
                         {{ else }}bg-sky-500{{ end }}"></span>
                       <span class="text-sm text-gray-800 truncate flex-1">{{ $e.name }}</span>
                       <span class="relative w-24 h-1.5 rounded-full bg-gray-200 overflow-hidden flex-none">
                         <span class="absolute inset-y-0 left-0
                           {{ if eq $e.kind "national" }}bg-indigo-500
-                          {{ else if eq $e.kind "championship" }}bg-amber-500
-                          {{ else if eq $e.kind "league" }}bg-emerald-500
+                          {{ else if eq $e.kind "ilsa tournament" }}bg-amber-500
+                          {{ else if eq $e.kind "ilsa league" }}bg-sky-500
+                          {{ else if eq $e.kind "other" }}bg-emerald-500
+                          {{ else if eq $e.kind "year" }}bg-emerald-500
                           {{ else }}bg-sky-500{{ end }}" style="width:{{ $pct }}%"></span>
                       </span>
                       <span class="tabular-nums text-sm font-semibold text-gray-900 w-7 text-right">{{ . }}</span>
@@ -236,15 +254,17 @@
         <h3 class="text-xs font-semibold uppercase tracking-wider text-gray-500">Filter by event</h3>
         <button type="button" data-clear-filter id="lb-clear" class="hidden text-xs font-medium text-indigo-600 hover:text-indigo-800 no-underline">Clear ✕</button>
       </div>
-      {{ range $kind, $label := (dict "national" "National Tournaments" "championship" "Championships" "league" "Leagues" "ilsa" "ILSA Events") }}
+      {{ range $kind, $label := (dict "year" "Year" "national" "National Tournament" "ilsa tournament" "ILSA Tournament" "ilsa league" "ILSA Leagues" "other" "Other Events") }}
         {{ $list := where $events "kind" $kind }}
         {{ if gt (len $list) 0 }}
           <div class="mb-5">
             <div class="flex items-center gap-2 mb-1.5">
               <span class="h-1.5 w-1.5 rounded-full
                 {{ if eq $kind "national" }}bg-indigo-500
-                {{ else if eq $kind "championship" }}bg-amber-500
-                {{ else if eq $kind "league" }}bg-emerald-500
+                {{ else if eq $kind "ilsa tournament" }}bg-amber-500
+                {{ else if eq $kind "ilsa league" }}bg-sky-500
+                {{ else if eq $kind "other" }}bg-emerald-500
+                {{ else if eq $kind "year" }}bg-emerald-500
                 {{ else }}bg-sky-500{{ end }}"></span>
               <span class="text-[11px] font-semibold uppercase tracking-wider text-gray-500">{{ $label }}</span>
             </div>
