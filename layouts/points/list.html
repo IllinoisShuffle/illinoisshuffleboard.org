@@ -50,8 +50,11 @@
       {{ $tournament_name := index $t_row 0 }}
       {{ $tournament_kind := index $t_row 1 }} 
       {{if eq $tournament_name $col }} 
-        {{ $kind = lower $tournament_kind }} 
-        {{ warnf "col %s |tournament_name %s |tournament_kind %s |kind %s" $col $tournament_name $tournament_kind $kind }}
+        {{ with $tournament_kind }}
+          {{ $kind = lower $tournament_kind }}
+        {{ else }}
+          {{ $kind = "other" }}
+        {{ end }}
       {{ end }}
     {{ end }}
 
@@ -173,8 +176,8 @@
                         {{ $pct := mul (div (mul . 1.0) $p.total) 100 }}
                         <div class="lb-strip-seg
                           {{ if eq $e.kind "national" }}bg-indigo-500
-                          {{ else if eq $e.kind "ilsa tournament" }}bg-amber-500
-                          {{ else if eq $e.kind "ilsa league" }}bg-sky-500
+                          {{ else if eq $e.kind "ilsa tournament" }}bg-yellow-300
+                          {{ else if eq $e.kind "ilsa league" }}bg-pink-500
                           {{ else if eq $e.kind "other" }}bg-emerald-500
                           {{ else if eq $e.kind "year" }}bg-emerald-500
                           {{ else }}bg-sky-500{{ end }}"
@@ -207,8 +210,8 @@
                       <span class="h-2 w-2 rounded-full flex-none
 
                         {{ if eq $e.kind "national" }}bg-indigo-500
-                        {{ else if eq $e.kind "ilsa tournament" }}bg-amber-500
-                        {{ else if eq $e.kind "ilsa league" }}bg-sky-500
+                        {{ else if eq $e.kind "ilsa tournament" }}bg-yellow-300
+                        {{ else if eq $e.kind "ilsa league" }}bg-pink-500
                         {{ else if eq $e.kind "other" }}bg-emerald-500
                         {{ else if eq $e.kind "year" }}bg-emerald-500
                         {{ else }}bg-sky-500{{ end }}"></span>
@@ -216,8 +219,8 @@
                       <span class="relative w-24 h-1.5 rounded-full bg-gray-200 overflow-hidden flex-none">
                         <span class="absolute inset-y-0 left-0
                           {{ if eq $e.kind "national" }}bg-indigo-500
-                          {{ else if eq $e.kind "ilsa tournament" }}bg-amber-500
-                          {{ else if eq $e.kind "ilsa league" }}bg-sky-500
+                          {{ else if eq $e.kind "ilsa tournament" }}bg-yellow-300
+                          {{ else if eq $e.kind "ilsa league" }}bg-pink-500
                           {{ else if eq $e.kind "other" }}bg-emerald-500
                           {{ else if eq $e.kind "year" }}bg-emerald-500
                           {{ else }}bg-sky-500{{ end }}" style="width:{{ $pct }}%"></span>
@@ -240,10 +243,10 @@
 
       <div class="px-4 sm:px-5 py-3 bg-gray-50 border-t border-gray-200 flex flex-wrap items-center gap-x-4 gap-y-1 text-xs text-gray-600">
         <span class="font-semibold uppercase tracking-wider text-[10px] text-gray-500">Event types</span>
-        <span class="inline-flex items-center gap-1.5"><span class="h-2 w-2 rounded-full bg-indigo-500"></span>Nationals</span>
-        <span class="inline-flex items-center gap-1.5"><span class="h-2 w-2 rounded-full bg-amber-500"></span>Championship</span>
-        <span class="inline-flex items-center gap-1.5"><span class="h-2 w-2 rounded-full bg-emerald-500"></span>Leagues</span>
-        <span class="inline-flex items-center gap-1.5"><span class="h-2 w-2 rounded-full bg-sky-500"></span>ILSA</span>
+        <span class="inline-flex items-center gap-1.5"><span class="h-2 w-2 rounded-full bg-indigo-500"></span>National Tournaments</span>
+        <span class="inline-flex items-center gap-1.5"><span class="h-2 w-2 rounded-full bg-yellow-300"></span>ILSA Tournaments</span>
+        <span class="inline-flex items-center gap-1.5"><span class="h-2 w-2 rounded-full bg-pink-500"></span>ILSA Leagues</span>
+        <span class="inline-flex items-center gap-1.5"><span class="h-2 w-2 rounded-full bg-emerald-500"></span>Other</span>
         <span class="ml-auto text-gray-500 hidden sm:inline">Click any player to see their breakdown</span>
       </div>
     </section>
@@ -261,8 +264,8 @@
             <div class="flex items-center gap-2 mb-1.5">
               <span class="h-1.5 w-1.5 rounded-full
                 {{ if eq $kind "national" }}bg-indigo-500
-                {{ else if eq $kind "ilsa tournament" }}bg-amber-500
-                {{ else if eq $kind "ilsa league" }}bg-sky-500
+                {{ else if eq $kind "ilsa tournament" }}bg-yellow-300
+                {{ else if eq $kind "ilsa league" }}bg-pink-500
                 {{ else if eq $kind "other" }}bg-emerald-500
                 {{ else if eq $kind "year" }}bg-emerald-500
                 {{ else }}bg-sky-500{{ end }}"></span>
@@ -298,7 +301,7 @@
   var eventBySlug = {};
   events.forEach(function (e) { eventBySlug[e.slug] = e; });
 
-  var KIND_BG = { national: "bg-indigo-500", championship: "bg-amber-500", league: "bg-emerald-500", ilsa: "bg-sky-500" };
+  var KIND_BG = { national: "bg-indigo-500", "ilsa tournament": "bg-yellow-300", "ilsa league": "bg-pink-500", other: "bg-emerald-500", year: "bg-emerald-500"};
 
   var rowsEl   = document.getElementById("lb-rows");
   var rows     = rowsEl ? Array.prototype.slice.call(rowsEl.querySelectorAll(".lb-row")) : [];
