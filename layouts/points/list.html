@@ -1,93 +1,479 @@
 {{ define "main" }}
 
-  <h3 class="text-2xl font-extrabold text-gray-900 tracking-tight sm:text-3xl mt-6">State Points</h3>
+{{/* ─── ILSA Points page (redesigned) ─────────────────────────────────────
+     Same data source as before (CSV at .Params.google_doc), but rendered
+     as a vertical leaderboard with an expandable per-player breakdown and
+     a sticky "Filter by event" sidebar. Interactivity is vanilla JS;
+     the page works without it (filter UI gracefully no-ops).
+─────────────────────────────────────────────────────────────────────────*/}}
 
-  <p class="mt-2 text-sm text-gray-700 lg:pr-32">
-    The Illinois Shuffleboard Association tracks points earned by our members in various tournaments and leagues.
-    The main purpose of points is to encourage participation in shuffleboard events, while fueling competition among our membership.
-    At this point, we will not use points to determine any kind of amateur, pro, or hall-of-fame status, but they may be used for this in the future.
-    A full breakdown of how points are earned can be found in our <a href="/documents/ILSA%20State%20Points%202.1.pdf" target="_blank">State Points Document</a>.
-  </p>
+<h3 class="text-2xl font-extrabold text-gray-900 tracking-tight sm:text-3xl mt-6">State Points</h3>
 
-  <p class="mt-2 text-sm text-gray-700 lg:pr-32">
-    If you believe there is an error in points or you'd like to change how we display your name, email <a href="mailto:contact@illinoisshuffleboard.org" target="_blank">contact@illinoisshuffleboard.org</a>.
-  </p>
+<p class="mt-2 text-sm text-gray-700 lg:pr-32">
+  The Illinois Shuffleboard Association tracks points earned by our members in various tournaments and leagues.
+  The main purpose of points is to encourage participation in shuffleboard events, while fueling competition among our membership.
+  At this point, we will not use points to determine any kind of amateur, pro, or hall-of-fame status, but they may be used for this in the future.
+  A full breakdown of how points are earned can be found in our <a href="/documents/ILSA%20State%20Points%202.1.pdf" target="_blank">State Points Document</a>.
+</p>
 
+<p class="mt-2 text-sm text-gray-700 lg:pr-32">
+  If you believe there is an error in points or you'd like to change how we display your name, email <a href="mailto:contact@illinoisshuffleboard.org" target="_blank">contact@illinoisshuffleboard.org</a>.
+</p>
 
-  <p class="mt-4 text-sm text-gray-700 lg:pr-32">
-    <a href="/points">2026</a> |
-    <a href="/points/2025">2025</a> |
-    <a href="/points/2024">2024</a> |
-    <a href="/points/2023">2023</a> |
-    <a href="/points/2022">2022</a> |
-    <a href="/points/alltime">All Time</a>
-  </p>
+<p class="mt-4 text-sm text-gray-700 lg:pr-32">
+  <a href="/points">2026</a> |
+  <a href="/points/2025">2025</a> |
+  <a href="/points/2024">2024</a> |
+  <a href="/points/2023">2023</a> |
+  <a href="/points/2022">2022</a> |
+  <a href="/points/alltime">All Time</a>
+</p>
 
-  
-  <h4 class="text-xl font-semibold text-gray-900 mt-8">{{ .Params.sub_title }}</h1>
-  
+<h4 class="text-xl font-semibold text-gray-900 mt-8">{{ .Params.sub_title }}</h4>
 
-  <div class="inline-block min-w-full py-2 align-middle"> 
-    <table class="border-separate pl-3" style="border-spacing: 0">
-      {{ $url := .Params.google_doc }}
-      {{ $sep := "," }}
+{{/* ─── Parse CSV ─── */}}
+{{ $url := .Params.google_doc }}
+{{ $csv := resources.GetRemote $url | transform.Unmarshal }}
 
-      <thead class="bg-gray-50">
-        {{ $csv := resources.GetRemote $url | transform.Unmarshal }}
-        {{ range $row_i, $row := $csv }}
-          {{ if ne $row_i 0 }}
-            {{/* Skip unless Header */}}
-            {{ continue }}
-          {{ end }}
+{{ $tournament_url := .Params.tournament_doc }}
+{{ $tournament_csv := resources.GetRemote $tournament_url | transform.Unmarshal }}
 
-          <tr>
-            {{ range $col_i, $col := $row }}
-              {{ if eq $col_i 0 }}
-                {{/* if first column */}}
-                <th scope="col" class="sticky top-0 z-10 border-b border-gray-300 bg-gray-50 bg-opacity-75 p-4 text-left text-sm font-semibold text-gray-900 backdrop-blur backdrop-filter">
-                  {{ $col }}
-                </th>
-              {{ else }}
-                <th scope="col" class="sticky top-0 z-10 w-24 border-b border-gray-300 bg-gray-50 bg-opacity-75 p-4 text-center text-sm font-semibold text-gray-900 backdrop-blur backdrop-filter">
-                  {{ $col }}
-                </th>
-              {{ end }}
-            {{ end }}
-          </tr>
+{{/* Header row → event metadata. Columns 0 and 1 are Name / Total. */}}
+{{ $header := index $csv 0 }}
+{{ $events := slice }}
+{{ range $i, $col := $header }}
+  {{ if gt $i 1 }}
+    {{ $kind := "other" }}
+
+    {{/* Loop over the tournament list to get the correct type to group them later */}}
+    {{ range $t_row_i, $t_row := $tournament_csv }}
+      {{ $tournament_name := index $t_row 0 }}
+      {{ $tournament_kind := index $t_row 1 }} 
+      {{if eq $tournament_name $col }} 
+        {{ with $tournament_kind }}
+          {{ $kind = lower $tournament_kind }}
+        {{ else }}
+          {{ $kind = "other" }}
         {{ end }}
-      </thead>
+      {{ end }}
+    {{ end }}
 
-      <tbody class="bg-white">
-        {{ $csv := resources.GetRemote $url | transform.Unmarshal }}
-        {{ range $row_i, $row := $csv }}
-          {{ if eq $row_i 0 }}
-            {{/* Skip Header */}}
-            {{ continue }}
-          {{ end }}
+    {{ $events = $events | append (dict
+        "idx"   $i
+        "name"  $col
+        "kind"  $kind
+        "slug"  (printf "e%d" $i)) }}
+  {{ end }}
+{{ end }}
 
-          {{ if eq (index $row 1) "0" }}
-            {{/* Skip Players with 0 Total Points */}}
-            {{ continue }}
-          {{ end }}
+{{/* Build player rows (skip header + 0-point players). */}}
+{{ $players := slice }}
+{{ range $row_i, $row := $csv }}
+  {{ if and (ne $row_i 0) (ne (index $row 1) "0") (ne (index $row 1) "") (findRE "^[0-9]+$" (index $row 1)) }}
+    {{ $name  := index $row 0 }}
+    {{ $total := index $row 1 | int }}
+    {{ $bd := dict }}
+    {{ $count := 0 }}
+    {{ range $e := $events }}
+      {{ $cell := index $row $e.idx }}
+      {{ if and (ne $cell "") (ne $cell "0") (findRE "^[0-9]+$" $cell) }}
+        {{ $bd = merge $bd (dict $e.slug ($cell | int)) }}
+        {{ $count = add $count 1 }}
+      {{ end }}
+    {{ end }}
+    {{ $players = $players | append (dict
+        "name"        $name
+        "total"       $total
+        "breakdown"   $bd
+        "eventCount"  $count) }}
+  {{ end }}
+{{ end }}
 
-            <tr>
-              {{ range $col_i, $col := $row }}
+{{/* Event totals + participation (computed) */}}
+{{ $eventStats := dict }}
+{{ range $e := $events }}
+  {{ $sum := 0 }}{{ $part := 0 }}
+  {{ range $p := $players }}
+    {{ with index $p.breakdown $e.slug }}
+      {{ $sum = add $sum . }}
+      {{ $part = add $part 1 }}
+    {{ end }}
+  {{ end }}
+  {{ $eventStats = merge $eventStats (dict $e.slug (dict "total" $sum "participants" $part)) }}
+{{ end }}
 
-                {{ if eq $col_i 0 }}
-                  {{/* if first column */}}
-                  <td class="whitespace-nowrap border-b border-gray-200 p-4 text-sm">
-                    {{ $col }}
-                  </td>
-                {{ else }}
-                  <td class="whitespace-nowrap border-b border-gray-200 p-4 text-sm text-center">
-                    {{ $col }}
-                  </td>
+{{/* Stable-sort players by total desc (Hugo's `sort` is stable on equal keys) */}}
+{{ $players = sort $players "total" "desc" }}
+
+{{ $isEmpty := eq (len $players) 0 }}
+
+<div id="ilsa-points" class="mt-5"
+     data-events='{{ $events | jsonify }}'
+     data-event-stats='{{ $eventStats | jsonify }}'>
+
+  {{ if $isEmpty }}
+    <div class="bg-white rounded-xl ring-1 ring-gray-200 shadow-sm p-10 text-center">
+      <div class="mx-auto h-12 w-12 rounded-full bg-indigo-100 grid place-items-center text-indigo-600 font-bold">{{ substr .Params.sub_title 2 2 }}</div>
+      <p class="mt-3 text-sm font-medium text-gray-900">{{ .Params.sub_title }} hasn't started yet</p>
+      <p class="mt-1 text-xs text-gray-500">Check back once the first events are scored.</p>
+    </div>
+  {{ else }}
+
+  <div class="grid gap-6 lg:grid-cols-[1fr_320px]">
+
+    {{/* ─── Leaderboard ─── */}}
+    <section class="bg-white rounded-xl shadow-sm ring-1 ring-gray-200 overflow-hidden">
+      <div class="p-4 sm:p-5 border-b border-gray-200">
+        <div class="flex flex-wrap items-center justify-between gap-3">
+          <div class="min-w-0">
+            <h2 id="lb-title" class="text-lg font-bold text-gray-900 truncate">{{ .Params.sub_title }} Leaderboard</h2>
+            <p id="lb-sub" class="text-xs text-gray-500 mt-0.5">{{ len $players }} players · {{ len $events }} scoring events</p>
+          </div>
+          <div class="flex items-center gap-2">
+            <div class="relative">
+              <svg class="absolute left-2.5 top-1/2 -translate-y-1/2 h-4 w-4 text-gray-400" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M9 3.5a5.5 5.5 0 100 11 5.5 5.5 0 000-11zM2 9a7 7 0 1112.452 4.391l3.328 3.329a.75.75 0 11-1.06 1.06l-3.329-3.328A7 7 0 012 9z" clip-rule="evenodd"/></svg>
+              <input id="lb-search" type="search" placeholder="Search players…" autocomplete="off"
+                     class="w-56 sm:w-64 pl-8 pr-3 py-1.5 text-sm rounded-md border border-gray-300 focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 outline-none bg-white" />
+            </div>
+            <select id="lb-sort" class="text-sm rounded-md border border-gray-300 py-1.5 pl-2.5 pr-7 bg-white">
+              <option value="rank">Sort: Total points</option>
+              <option value="name">Sort: Name (A–Z)</option>
+              <option value="events">Sort: # events</option>
+            </select>
+          </div>
+        </div>
+        <div id="lb-filter-banner" class="mt-3 hidden">
+          <span class="inline-flex items-center gap-2 rounded-full bg-indigo-50 text-indigo-700 ring-1 ring-inset ring-indigo-200 px-3 py-1 text-sm">
+            <span id="lb-filter-dot" class="h-1.5 w-1.5 rounded-full bg-indigo-500"></span>
+            Filtering: <strong id="lb-filter-name" class="font-semibold"></strong>
+            <button type="button" data-clear-filter class="ml-1 text-indigo-600 hover:text-indigo-900 no-underline">✕</button>
+          </span>
+        </div>
+      </div>
+
+      <div id="lb-rows">
+        {{ range $i, $p := $players }}
+          {{ $rank := add $i 1 }}
+          <div class="lb-row border-b border-gray-200 last:border-b-0"
+               data-name="{{ $p.name }}"
+               data-name-lower="{{ lower $p.name }}"
+               data-total="{{ $p.total }}"
+               data-events="{{ $p.eventCount }}"
+               data-bd='{{ $p.breakdown | jsonify }}'>
+            <button type="button" data-toggle
+                    class="lb-summary w-full grid items-center gap-3 px-4 sm:px-5 py-3.5 text-left hover:bg-gray-50/80 transition"
+                    style="grid-template-columns: 44px minmax(0,1fr) 80px 80px 28px;">
+              <span class="lb-rank tabular-nums font-semibold text-sm {{ if eq $rank 1 }}text-amber-600{{ else if le $rank 3 }}text-indigo-700{{ else }}text-gray-500{{ end }}">{{ $rank }}</span>
+              <div class="min-w-0">
+                <div class="flex items-center gap-2">
+                  <span class="font-medium text-gray-900 truncate">{{ $p.name }}</span>
+                  <span class="text-xs text-gray-500 hidden sm:inline">{{ $p.eventCount }} events</span>
+                </div>
+                <div class="mt-1.5 max-w-md">
+                  <div class="lb-strip flex h-1.5 w-full rounded-full overflow-hidden bg-gray-100">
+                    {{ range $e := $events }}
+                      {{ with index $p.breakdown $e.slug }}
+                        {{ $pct := mul (div (mul . 1.0) $p.total) 100 }}
+                        <div class="lb-strip-seg
+                          {{ if eq $e.kind "national" }}bg-indigo-500
+                          {{ else if eq $e.kind "ilsa tournament" }}bg-yellow-300
+                          {{ else if eq $e.kind "ilsa league" }}bg-pink-500
+                          {{ else if eq $e.kind "other" }}bg-emerald-500
+                          {{ else if eq $e.kind "year" }}bg-emerald-500
+                          {{ else }}bg-sky-500{{ end }}"
+                          data-event="{{ $e.slug }}"
+                          style="width:{{ $pct }}%"
+                          title="{{ $e.name }}: {{ . }}"></div>
+                      {{ end }}
+                    {{ end }}
+                  </div>
+                </div>
+              </div>
+              <div class="text-right tabular-nums">
+                <div class="lb-primary text-base font-bold text-gray-900">{{ $p.total }}</div>
+                <div class="lb-primary-label text-xs text-gray-500 hidden">in event</div>
+              </div>
+              <div class="text-right tabular-nums">
+                <div class="lb-secondary text-xs text-gray-500 hidden sm:block">total</div>
+              </div>
+              <svg class="lb-chevron h-4 w-4 text-gray-400 transition-transform" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M5.23 7.21a.75.75 0 011.06.02L10 11.06l3.71-3.83a.75.75 0 111.08 1.04l-4.24 4.38a.75.75 0 01-1.08 0L5.21 8.27a.75.75 0 01.02-1.06z" clip-rule="evenodd"/></svg>
+            </button>
+            <div class="lb-detail hidden px-4 sm:px-5 pb-5 pt-1 bg-indigo-50/40">
+              <div class="grid sm:grid-cols-2 gap-x-8 gap-y-2 max-w-3xl">
+                {{ $maxPts := 1 }}
+                {{ range $e := $events }}{{ with index $p.breakdown $e.slug }}{{ if gt . $maxPts }}{{ $maxPts = . }}{{ end }}{{ end }}{{ end }}
+                {{ range $e := $events }}
+                  {{ with index $p.breakdown $e.slug }}
+                    {{ $pct := mul (div (mul . 1.0) $maxPts) 100 }}
+                    <button type="button" data-event-pick="{{ $e.slug }}"
+                            class="group flex items-center gap-3 py-1.5 px-2 -mx-2 rounded-md text-left hover:bg-white">
+                      <span class="h-2 w-2 rounded-full flex-none
+
+                        {{ if eq $e.kind "national" }}bg-indigo-500
+                        {{ else if eq $e.kind "ilsa tournament" }}bg-yellow-300
+                        {{ else if eq $e.kind "ilsa league" }}bg-pink-500
+                        {{ else if eq $e.kind "other" }}bg-emerald-500
+                        {{ else if eq $e.kind "year" }}bg-emerald-500
+                        {{ else }}bg-sky-500{{ end }}"></span>
+                      <span class="text-sm text-gray-800 truncate flex-1">{{ $e.name }}</span>
+                      <span class="relative w-24 h-1.5 rounded-full bg-gray-200 overflow-hidden flex-none">
+                        <span class="absolute inset-y-0 left-0
+                          {{ if eq $e.kind "national" }}bg-indigo-500
+                          {{ else if eq $e.kind "ilsa tournament" }}bg-yellow-300
+                          {{ else if eq $e.kind "ilsa league" }}bg-pink-500
+                          {{ else if eq $e.kind "other" }}bg-emerald-500
+                          {{ else if eq $e.kind "year" }}bg-emerald-500
+                          {{ else }}bg-sky-500{{ end }}" style="width:{{ $pct }}%"></span>
+                      </span>
+                      <span class="tabular-nums text-sm font-semibold text-gray-900 w-7 text-right">{{ . }}</span>
+                    </button>
+                  {{ end }}
                 {{ end }}
+              </div>
+              <div class="mt-3 flex items-center justify-between text-xs text-gray-500">
+                <span>{{ $p.eventCount }} events played · click any event to filter the leaderboard</span>
+                <span class="tabular-nums">Total <strong class="text-gray-900">{{ $p.total }}</strong> pts</span>
+              </div>
+            </div>
+          </div>
+        {{ end }}
+      </div>
+
+      <div id="lb-empty" class="hidden p-10 text-center text-sm text-gray-500"></div>
+
+      <div class="px-4 sm:px-5 py-3 bg-gray-50 border-t border-gray-200 flex flex-wrap items-center gap-x-4 gap-y-1 text-xs text-gray-600">
+        <span class="font-semibold uppercase tracking-wider text-[10px] text-gray-500">Event types</span>
+        <span class="inline-flex items-center gap-1.5"><span class="h-2 w-2 rounded-full bg-indigo-500"></span>National Tournaments</span>
+        <span class="inline-flex items-center gap-1.5"><span class="h-2 w-2 rounded-full bg-yellow-300"></span>ILSA Tournaments</span>
+        <span class="inline-flex items-center gap-1.5"><span class="h-2 w-2 rounded-full bg-pink-500"></span>ILSA Leagues</span>
+        <span class="inline-flex items-center gap-1.5"><span class="h-2 w-2 rounded-full bg-emerald-500"></span>Other</span>
+        <span class="ml-auto text-gray-500 hidden sm:inline">Click any player to see their breakdown</span>
+      </div>
+    </section>
+
+    {{/* ─── Event sidebar ─── */}}
+    <aside class="lg:sticky lg:top-4 self-start bg-white rounded-xl shadow-sm ring-1 ring-gray-200 p-5 max-h-[calc(100vh-2rem)] overflow-y-auto">
+      <div class="flex items-center justify-between mb-4">
+        <h3 class="text-xs font-semibold uppercase tracking-wider text-gray-500">Filter by event</h3>
+        <button type="button" data-clear-filter id="lb-clear" class="hidden text-xs font-medium text-indigo-600 hover:text-indigo-800 no-underline">Clear ✕</button>
+      </div>
+      {{ range $kind, $label := (dict "year" "Year" "national" "National Tournament" "ilsa tournament" "ILSA Tournament" "ilsa league" "ILSA Leagues" "other" "Other Events") }}
+        {{ $list := where $events "kind" $kind }}
+        {{ if gt (len $list) 0 }}
+          <div class="mb-5">
+            <div class="flex items-center gap-2 mb-1.5">
+              <span class="h-1.5 w-1.5 rounded-full
+                {{ if eq $kind "national" }}bg-indigo-500
+                {{ else if eq $kind "ilsa tournament" }}bg-yellow-300
+                {{ else if eq $kind "ilsa league" }}bg-pink-500
+                {{ else if eq $kind "other" }}bg-emerald-500
+                {{ else if eq $kind "year" }}bg-emerald-500
+                {{ else }}bg-sky-500{{ end }}"></span>
+              <span class="text-[11px] font-semibold uppercase tracking-wider text-gray-500">{{ $label }}</span>
+            </div>
+            <div class="space-y-0.5">
+              {{ range $e := $list }}
+                {{ $st := index $eventStats $e.slug }}
+                <button type="button" data-event-pick="{{ $e.slug }}"
+                        class="lb-event w-full flex items-center gap-2 px-2 py-1.5 rounded-md text-sm text-left transition hover:bg-gray-100 text-gray-800">
+                  <span class="flex-1 truncate">{{ $e.name }}</span>
+                  <span class="lb-event-part tabular-nums text-xs px-1.5 rounded bg-gray-100 text-gray-600">{{ $st.participants }}p</span>
+                  <span class="lb-event-total tabular-nums text-xs font-semibold w-9 text-right text-gray-900">{{ $st.total }}</span>
+                </button>
               {{ end }}
-            </tr>
-          {{ end }}
-      </tbody>
-    </table>
+            </div>
+          </div>
+        {{ end }}
+      {{ end }}
+    </aside>
+
   </div>
+
+  {{ end }}{{/* /isEmpty */}}
+</div>
+
+<script>
+(function () {
+  var root = document.getElementById("ilsa-points");
+  if (!root) return;
+
+  var events = JSON.parse(root.dataset.events || "[]");
+  var eventBySlug = {};
+  events.forEach(function (e) { eventBySlug[e.slug] = e; });
+
+  var KIND_BG = { national: "bg-indigo-500", "ilsa tournament": "bg-yellow-300", "ilsa league": "bg-pink-500", other: "bg-emerald-500", year: "bg-emerald-500"};
+
+  var rowsEl   = document.getElementById("lb-rows");
+  var rows     = rowsEl ? Array.prototype.slice.call(rowsEl.querySelectorAll(".lb-row")) : [];
+  var search   = document.getElementById("lb-search");
+  var sortSel  = document.getElementById("lb-sort");
+  var title    = document.getElementById("lb-title");
+  var sub      = document.getElementById("lb-sub");
+  var banner   = document.getElementById("lb-filter-banner");
+  var bDot     = document.getElementById("lb-filter-dot");
+  var bName    = document.getElementById("lb-filter-name");
+  var clearBtn = document.getElementById("lb-clear");
+  var empty    = document.getElementById("lb-empty");
+
+  var state = { q: "", sort: "rank", filter: null };
+
+  // Toggle row detail
+  rows.forEach(function (row) {
+    var btn = row.querySelector("[data-toggle]");
+    var det = row.querySelector(".lb-detail");
+    var chev = row.querySelector(".lb-chevron");
+    btn.addEventListener("click", function () {
+      var open = !det.classList.contains("hidden");
+      // close others (single-open)
+      rows.forEach(function (r) {
+        r.querySelector(".lb-detail").classList.add("hidden");
+        var c = r.querySelector(".lb-chevron"); if (c) c.style.transform = "";
+        r.classList.remove("bg-indigo-50/40");
+      });
+      if (!open) {
+        det.classList.remove("hidden");
+        chev.style.transform = "rotate(180deg)";
+        row.classList.add("bg-indigo-50/40");
+      }
+    });
+  });
+
+  // Event-pick buttons (sidebar + within details)
+  document.querySelectorAll("[data-event-pick]").forEach(function (btn) {
+    btn.addEventListener("click", function (e) {
+      e.stopPropagation();
+      var slug = btn.getAttribute("data-event-pick");
+      state.filter = (state.filter === slug) ? null : slug;
+      apply();
+    });
+  });
+
+  // Clear-filter buttons
+  document.querySelectorAll("[data-clear-filter]").forEach(function (btn) {
+    btn.addEventListener("click", function (e) {
+      e.stopPropagation();
+      state.filter = null;
+      apply();
+    });
+  });
+
+  if (search) search.addEventListener("input", function () { state.q = search.value.trim().toLowerCase(); apply(); });
+  if (sortSel) sortSel.addEventListener("change", function () { state.sort = sortSel.value; apply(); });
+
+  function apply() {
+    var filtered = rows.filter(function (row) {
+      if (state.q && row.dataset.nameLower.indexOf(state.q) === -1) return false;
+      if (state.filter) {
+        var bd = JSON.parse(row.dataset.bd || "{}");
+        if (!bd[state.filter]) return false;
+      }
+      return true;
+    });
+
+    // sort
+    filtered.sort(function (a, b) {
+      if (state.filter) {
+        var ab = (JSON.parse(a.dataset.bd)[state.filter] || 0);
+        var bb = (JSON.parse(b.dataset.bd)[state.filter] || 0);
+        if (bb !== ab) return bb - ab;
+        return (+b.dataset.total) - (+a.dataset.total);
+      }
+      if (state.sort === "name")   return a.dataset.name.localeCompare(b.dataset.name);
+      if (state.sort === "events") return (+b.dataset.events) - (+a.dataset.events) || (+b.dataset.total) - (+a.dataset.total);
+      return (+b.dataset.total) - (+a.dataset.total);
+    });
+
+    // re-attach + re-rank
+    rows.forEach(function (r) { r.style.display = "none"; });
+    var lastTotal = null, lastRank = 0;
+    filtered.forEach(function (r, i) {
+      r.style.display = "";
+      rowsEl.appendChild(r);
+      var primary = state.filter
+        ? (JSON.parse(r.dataset.bd)[state.filter] || 0)
+        : (+r.dataset.total);
+      var rank = (primary === lastTotal) ? lastRank : i + 1;
+      lastTotal = primary; lastRank = rank;
+      var rankEl = r.querySelector(".lb-rank");
+      if (rankEl) rankEl.textContent = rank;
+      rankEl.className = "lb-rank tabular-nums font-semibold text-sm " +
+        (rank === 1 ? "text-amber-600" : rank <= 3 ? "text-indigo-700" : "text-gray-500");
+
+      // primary / secondary cells reflect filter mode
+      var bd = JSON.parse(r.dataset.bd || "{}");
+      var primaryEl = r.querySelector(".lb-primary");
+      var primaryLabel = r.querySelector(".lb-primary-label");
+      var secondary = r.querySelector(".lb-secondary");
+      if (state.filter) {
+        primaryEl.textContent = bd[state.filter] || 0;
+        primaryEl.className = "lb-primary text-base font-bold text-indigo-700";
+        primaryLabel.classList.remove("hidden");
+        secondary.innerHTML = '<div class="text-sm font-medium text-gray-700">' + r.dataset.total + '</div><div class="text-[11px] text-gray-500">total</div>';
+        secondary.className = "lb-secondary text-right tabular-nums";
+      } else {
+        primaryEl.textContent = r.dataset.total;
+        primaryEl.className = "lb-primary text-base font-bold text-gray-900";
+        primaryLabel.classList.add("hidden");
+        secondary.innerHTML = "total";
+        secondary.className = "lb-secondary text-xs text-gray-500 hidden sm:block text-right tabular-nums";
+      }
+
+      // dim/highlight strip segments
+      r.querySelectorAll(".lb-strip-seg").forEach(function (seg) {
+        if (state.filter) {
+          seg.style.opacity = (seg.dataset.event === state.filter) ? "1" : "0.22";
+        } else {
+          seg.style.opacity = "";
+        }
+      });
+    });
+
+    // sidebar active state
+    document.querySelectorAll(".lb-event").forEach(function (btn) {
+      var on = btn.getAttribute("data-event-pick") === state.filter;
+      var part = btn.querySelector(".lb-event-part");
+      var tot  = btn.querySelector(".lb-event-total");
+      btn.className = "lb-event w-full flex items-center gap-2 px-2 py-1.5 rounded-md text-sm text-left transition " +
+        (on ? "bg-indigo-600 text-white" : "hover:bg-gray-100 text-gray-800");
+      if (part) part.className = "lb-event-part tabular-nums text-xs px-1.5 rounded " + (on ? "bg-indigo-500/60 text-white" : "bg-gray-100 text-gray-600");
+      if (tot)  tot.className  = "lb-event-total tabular-nums text-xs font-semibold w-9 text-right " + (on ? "text-white" : "text-gray-900");
+    });
+
+    // banner + header
+    if (state.filter) {
+      var e = eventBySlug[state.filter];
+      banner.classList.remove("hidden");
+      bName.textContent = e.name;
+      bDot.className = "h-1.5 w-1.5 rounded-full " + KIND_BG[e.kind];
+      title.textContent = e.name;
+      sub.textContent = filtered.length + " players earned points · sorted by points in this event";
+      if (clearBtn) clearBtn.classList.remove("hidden");
+    } else {
+      banner.classList.add("hidden");
+      title.textContent = (sub.dataset && sub.dataset.defaultTitle) || title.dataset.defaultTitle || title.textContent;
+      // restore defaults from cached
+      title.textContent = title.dataset.defaultTitle;
+      sub.textContent = sub.dataset.defaultSub;
+      if (clearBtn) clearBtn.classList.add("hidden");
+    }
+
+    // empty
+    if (filtered.length === 0) {
+      empty.classList.remove("hidden");
+      empty.innerHTML = state.q
+        ? 'No players match "' + state.q.replace(/[<>&"]/g, "") + '". <button type="button" id="lb-clear-q" class="ml-2 text-indigo-600 no-underline hover:text-indigo-800">Clear search</button>'
+        : "No players match the current filter.";
+      var c = document.getElementById("lb-clear-q");
+      if (c) c.addEventListener("click", function () { state.q = ""; if (search) search.value = ""; apply(); });
+    } else {
+      empty.classList.add("hidden");
+    }
+  }
+
+  // cache defaults so we can restore on clear
+  if (title) title.dataset.defaultTitle = title.textContent;
+  if (sub)   sub.dataset.defaultSub   = sub.textContent;
+})();
+</script>
 
 {{ end }}
