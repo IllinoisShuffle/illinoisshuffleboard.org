@@ -133,9 +133,9 @@
             <div class="relative">
               <svg class="absolute left-2.5 top-1/2 -translate-y-1/2 h-4 w-4 text-gray-400" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M9 3.5a5.5 5.5 0 100 11 5.5 5.5 0 000-11zM2 9a7 7 0 1112.452 4.391l3.328 3.329a.75.75 0 11-1.06 1.06l-3.329-3.328A7 7 0 012 9z" clip-rule="evenodd"/></svg>
               <input id="lb-search" type="search" placeholder="Search players…" autocomplete="off"
-                     class="w-56 sm:w-64 pl-8 pr-3 py-1.5 text-sm rounded-md border border-gray-300 focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 outline-none bg-white" />
+                     class="w-28 sm:w-64 pl-8 pr-3 py-1.5 text-sm rounded-md border border-gray-300 focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 outline-none bg-white" />
             </div>
-            <select id="lb-sort" class="text-sm rounded-md border border-gray-300 py-1.5 pl-2.5 pr-7 bg-white">
+            <select id="lb-sort" class="w-28 text-sm rounded-md border border-gray-300 py-1.5 pl-2.5 pr-7 bg-white">
               <option value="rank">Sort: Total points</option>
               <option value="name">Sort: Name (A–Z)</option>
               <option value="events">Sort: # events</option>
@@ -162,11 +162,11 @@
                data-bd='{{ $p.breakdown | jsonify }}'>
             <button type="button" data-toggle
                     class="lb-summary w-full grid items-center gap-3 px-4 sm:px-5 py-3.5 text-left hover:bg-gray-50/80 transition"
-                    style="grid-template-columns: 44px minmax(0,1fr) 80px 80px 28px;">
+                    style="grid-template-columns: 28px 1fr 28px 10px 28px;">
               <span class="lb-rank tabular-nums font-semibold text-sm {{ if eq $rank 1 }}text-amber-600{{ else if le $rank 3 }}text-indigo-700{{ else }}text-gray-500{{ end }}">{{ $rank }}</span>
               <div class="min-w-0">
                 <div class="flex items-center gap-2">
-                  <span class="font-medium text-gray-900 truncate">{{ $p.name }}</span>
+                  <span class="font-medium text-gray-900">{{ $p.name }}</span>
                   <span class="text-xs text-gray-500 hidden sm:inline">{{ $p.eventCount }} events</span>
                 </div>
                 <div class="mt-1.5 max-w-md">
