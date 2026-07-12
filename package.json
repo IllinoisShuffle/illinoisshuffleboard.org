@@ -4,6 +4,8 @@
   "description": "The Illinois Shuffleboard Association's Website",
   "main": "index.js",
   "scripts": {
+    "dev": "netlify dev",
+    "cms-proxy": "netlify-cms-proxy-server",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -19,6 +21,8 @@
   "devDependencies": {
     "@tailwindcss/cli": "^4.0.0",
     "@tailwindcss/typography": "^0.5.15",
+    "netlify-cli": "^17.0.0",
+    "netlify-cms-proxy-server": "^1.3.6",
     "tailwindcss": "^4.0.0"
   }
 }

@@ -5,6 +5,12 @@
 [build.environment]
   HUGO_VERSION = "0.152.2"
 
+[dev]
+  command = "hugo server -D"
+  port = 8888
+  targetPort = 1313
+  autoLaunch = false
+
 # ####### general ILSA links ####### 
 
 [[redirects]]

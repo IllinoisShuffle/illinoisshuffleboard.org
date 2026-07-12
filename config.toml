@@ -16,6 +16,17 @@ title = 'Illinois Shuffleboard Association'
     source = "hugo_stats\\.json"
     target = "css"
 
+[mediaTypes]
+  [mediaTypes."application/yaml"]
+    suffixes = ["yml"]
+
+[outputFormats]
+  [outputFormats.YAML]
+    mediaType = "application/yaml"
+    baseName = "config"
+    isPlainText = true
+    notAlternative = true
+
 [markup]
   [markup.goldmark]
     [markup.goldmark.renderer]
