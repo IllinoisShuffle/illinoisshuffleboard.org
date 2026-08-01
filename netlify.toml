@@ -64,7 +64,7 @@
 
 [[redirects]]
   from = "/standings"
-  to = "https://2026-chicago-national.netlify.app/?choose"
+  to = "https://2026-chicago-national.netlify.app/"
   status = 302
   # now points to 2026 bracket
 
@@ -107,7 +107,7 @@
 
 [[redirects]]
   from = "/l/national-standings"
-  to = "https://2026-chicago-national.netlify.app/?choose"
+  to = "https://2026-chicago-national.netlify.app/"
   status = 302
   # points to 2026 bracket site
 
