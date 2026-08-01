@@ -64,9 +64,9 @@
 
 [[redirects]]
   from = "/standings"
-  to = "https://docs.google.com/spreadsheets/d/1FAIppioHDaAQNwZwvhCqJrbab_t3Adn5Nyk0LPAoiD0/edit?usp=sharing"
+  to = "https://2026-chicago-national.netlify.app/"
   status = 302
-  # now points to 2025 bracket
+  # now points to 2026 bracket
 
 [[redirects]]
   from = "/national"
@@ -90,15 +90,15 @@
 
 [[redirects]]
   from = "/l/national-info"
-  to = "https://drive.google.com/file/d/1hv7G3QzCrusnaO3fSdNbOJeTp1CLb1hJ/view"
+  to = "https://drive.google.com/file/d/12zTULdwuVERTZfjFjB2cEsV8tqFoksyY/view"
   status = 302
-  # points to 2025 player packet
+  # points to 2026 player packet
 
 [[redirects]]
   from = "/l/national-guide"
-  to = "https://drive.google.com/file/d/1-5TWvtIUxkeqyxwvwWLlPg9dio_GPqM_/view"
+  to = "https://drive.google.com/file/d/1swKYsstIBh6rcIjstdIhsmAMwTKnl2yN/view"
   status = 302
-  # points to 2025 chicago guide
+  # points to 2026 chicago guide
 
 [[redirects]]
   from = "/l/national-map"
@@ -107,15 +107,15 @@
 
 [[redirects]]
   from = "/l/national-standings"
-  to = "https://docs.google.com/spreadsheets/d/1FAIppioHDaAQNwZwvhCqJrbab_t3Adn5Nyk0LPAoiD0/edit?usp=sharing"
+  to = "https://2026-chicago-national.netlify.app/"
   status = 302
-  # points to 2025 bracket
+  # points to 2026 bracket site
 
 [[redirects]]
   from = "/l/national-speed-shuffle"
-  to = "https://docs.google.com/forms/d/e/1FAIpQLScN7jhfVne0ffq2n_nszLGh1PeuQwMg74Q28729EkU1_kAMMg/viewform"
+  to = "https://forms.gle/8u6r1nxSUHFkVgjt6"
   status = 302
-  # points to 2025 sign-up form
+  # points to 2026 sign-up form
 
 #  ####### event specific links ####### 
 
