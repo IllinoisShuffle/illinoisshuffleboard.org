@@ -69,6 +69,11 @@
   # now points to 2026 bracket
 
 [[redirects]]
+  from = "/scoreboard"
+  to = "https://2026-chicago-national.netlify.app/scoreboard"
+  status = 302
+
+[[redirects]]
   from = "/national"
   to = "https://lnk.bio/ILLINOISSHUFFLEBOARD"
   status = 302
