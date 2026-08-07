@@ -6,3 +6,6 @@
 .vscode/
 .DS_Store
 node_modules/
+/.claude/
+/.env
+/.netlify/
