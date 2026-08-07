@@ -25,7 +25,7 @@
 
 [[redirects]]
   from = "/volunteers"
-  to = "https://2026-chicago-national.netlify.app/?choose&staff"
+  to = "https://2026-chicago-national.netlify.app/staff"
   status = 302
 
 [[redirects]]
