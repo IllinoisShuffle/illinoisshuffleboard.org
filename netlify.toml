@@ -24,6 +24,11 @@
   status = 302
 
 [[redirects]]
+  from = "/volunteers"
+  to = "https://2026-chicago-national.netlify.app/?choose&staff"
+  status = 302
+
+[[redirects]]
   from = "/l/banner-join"
   to = "/join"
   status = 302
