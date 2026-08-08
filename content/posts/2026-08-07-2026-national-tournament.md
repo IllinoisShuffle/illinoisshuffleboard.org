@@ -2,7 +2,7 @@
 title: "2026 National Tournament"
 date: 2026-08-07
 expiryDate: 2026-08-10
-draft: true
+draft: false
 ---
 
 The Chicago National Tournament is this weekend! Here are all the links you'll need to follow along:
