@@ -143,6 +143,12 @@
   from = "/toc-qr-code"
   to = "https://docs.google.com/spreadsheets/d/1HIz7Nddc4pHybdnIaAzAb-0kXW_hHxHtgvX-Svwo26c/edit?usp=sharing"
   status = 302
+
+[[redirects]]
+  from = "/speedshuffleusa"
+  to = "https://speed-shuffle-usa.netlify.app/"
+  status = 302
+
   
 #  ####### league links ####### 
 
