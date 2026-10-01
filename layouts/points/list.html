@@ -152,8 +152,15 @@
       </div>
 
       <div id="lb-rows">
+        {{ $lastTotal := -1 }}
+        {{ $lastRank := 0 }}
         {{ range $i, $p := $players }}
           {{ $rank := add $i 1 }}
+          {{ if eq $p.total $lastTotal }}
+            {{ $rank = $lastRank }}
+          {{ end }}
+          {{ $lastTotal = $p.total }}
+          {{ $lastRank = $rank }}
           <div class="lb-row border-b border-gray-200 last:border-b-0"
                data-name="{{ $p.name }}"
                data-name-lower="{{ lower $p.name }}"
